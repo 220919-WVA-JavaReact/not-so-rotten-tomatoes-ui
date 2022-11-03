@@ -30,15 +30,7 @@ function Login(){
       setErrorMessage('You must have a valid username and password');
     } else {
       setErrorMessage('');
-      //   try {
-      //   let response = await fetch('localhost:8080/foundations-project/u/login', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'JSON',
-      //     },
-      //     credentials: 'include', //property needed to work with java http sessions. Not necessary for JWTs
-      //     body: JSON.stringify({ username, password }),
-      //   });
+    
       let response = await fetch(
         'http://localhost:8080/auth',  {
                 method: 'POST',
@@ -56,9 +48,6 @@ function Login(){
       } else {
         setErrorMessage('Could not validate the provided credentials');
       }
-      //   } catch (err) {
-      //     setErrorMessage('Unable to communicate with the server');
-      //   }
     }
   };
 
