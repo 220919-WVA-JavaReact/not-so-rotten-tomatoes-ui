@@ -8,7 +8,7 @@ function NaviBar(){
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="home">NSRT</Navbar.Brand>
+        <Navbar.Brand href="/">NSRT</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
