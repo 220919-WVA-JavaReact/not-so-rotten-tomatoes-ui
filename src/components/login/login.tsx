@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from 'react';
-
+import { Navigate } from 'react-router-dom';
+import { User } from '../../models/user';
 import {
   MDBContainer,
   MDBInput,
@@ -9,8 +10,12 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+interface ILoginProps {
+  currentUser: User | undefined,
+  setCurrentUser: (nextUser: User) => void
+}
 
-function Login(){
+function Login(props: ILoginProps){
 
      //Destructuring assignment -- sets username to first ele of userState array, and setUsername to the second ele of userState array.
   const [username, setUsername] = useState('');
@@ -21,11 +26,12 @@ function Login(){
     //username = (e.target as HTMLInputElement).value; -- do not need to use this when using Hooks, need to use below.
     setUsername((e.target as HTMLInputElement).value);
   };
+
   let updatePassword = (e: SyntheticEvent) => {
     setPassword((e.target as HTMLInputElement).value);
   };
+
   let login = async (e: SyntheticEvent) => {
-    console.log(`Username is: ${username}, password is ${password}`);
     if (!username || !password) {
       setErrorMessage('You must have a valid username and password');
     } else {
@@ -36,15 +42,22 @@ function Login(){
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
+
                 },
-               // credentials: 'include', //property needed to work with java http sessions. Not necessary for JWTs
+                //credentials: 'include', //property needed to work with java http sessions. Not necessary for JWTs
                 body: JSON.stringify({ username, password }),
               }
       );
 
       if (response.status === 200) {
-        let data = await response.json();
-        console.log(data);
+
+        let token = response.headers.get('Authorization');
+        console.log('Authorization: ' + response.headers.get('Authorization'));
+        if (token){
+          sessionStorage.setItem('token', token);
+        }
+        props.setCurrentUser(await response.json());
+
       } else {
         setErrorMessage('Could not validate the provided credentials');
       }
@@ -52,6 +65,10 @@ function Login(){
   };
 
   return(
+    props.currentUser ?
+      <Navigate to="/dashboard" />
+      :
+
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
       <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username' onChange={updateUsername}/>
@@ -68,7 +85,7 @@ function Login(){
       <MDBBtn className="mb-4" onClick={login}>Sign in</MDBBtn>
 
       <div className="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href="/register">Register</a></p>
         {/* Might use later for SSO login??-------------------------------------
         <p>or sign up with:</p>
 

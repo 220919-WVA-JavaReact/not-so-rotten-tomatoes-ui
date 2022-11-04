@@ -12,53 +12,20 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
+import { User } from '../../models/user';
+import { Navigate } from 'react-router-dom';
 
-function Register(){
+interface IRegisterProps {
+  currentUser: User | undefined,
+  setCurrentUser: (nextUser: User) => void
+}
+
+function Register(props: IRegisterProps){
     return(
-    //     <MDBContainer fluid>
-
-    //     <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
-    //       <MDBCardBody>
-    //         <MDBRow>
-    //           <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-  
-    //             <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-  
-    //             <div className="align-items-center mb-4 ">
-    //               <MDBIcon fas icon="user me-3" size='lg'/>
-    //               <MDBInput label='Your Name' id='form1' type='text' className='w-100'/>
-    //             </div>
-  
-    //             <div className="d-flex flex-row align-items-center mb-4">
-    //               <MDBIcon fas icon="envelope me-3" size='lg'/>
-    //               <MDBInput label='Your Email' id='form2' type='email'/>
-    //             </div>
-  
-    //             <div className="d-flex flex-row align-items-center mb-4">
-    //               <MDBIcon fas icon="lock me-3" size='lg'/>
-    //               <MDBInput label='Password' id='form3' type='password'/>
-    //             </div>
-  
-    //             <div className="d-flex flex-row align-items-center mb-4">
-    //               <MDBIcon fas icon="key me-3" size='lg'/>
-    //               <MDBInput label='Repeat your password' id='form4' type='password'/>
-    //             </div>
-  
-  
-    //             <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
-  
-    //           </MDBCol>
-  
-    //           <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-    //             <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp' fluid/>
-    //           </MDBCol>
-  
-    //         </MDBRow>
-    //       </MDBCardBody>
-    //     </MDBCard>
-  
-    //   </MDBContainer>
-
+      props.currentUser? // condition to be evaluated, ie: if(user)
+        // <p> Welcome {props.currentUser.username}! </p> // if true
+        <Navigate to="/dashboard" />
+        :
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
