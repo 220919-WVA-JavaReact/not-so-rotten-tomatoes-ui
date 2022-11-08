@@ -21,6 +21,7 @@ function Login(props: ILoginProps){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  let logout = false;
 
   let updateUsername = (e: SyntheticEvent) => {
     //username = (e.target as HTMLInputElement).value; -- do not need to use this when using Hooks, need to use below.
@@ -50,7 +51,7 @@ function Login(props: ILoginProps){
       );
 
       if (response.status === 200) {
-
+        logout = true;
         let token = response.headers.get('Authorization');
         console.log('Authorization: ' + response.headers.get('Authorization'));
         if (token){
