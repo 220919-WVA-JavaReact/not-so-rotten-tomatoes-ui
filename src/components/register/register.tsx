@@ -64,7 +64,7 @@ function Register(props: IRegisterProps){
   }
 
   const navigateHome = () => {
-    // 👇️ navigate to /contacts
+    <Navigate to="/dashboard"/>
   }
 
 
@@ -79,8 +79,8 @@ function Register(props: IRegisterProps){
 
         <MDBInput wrapperClass='mb-4' label='Your Name' id='form1' type='username' />
         <MDBInput wrapperClass='mb-4' label='Your Email' id='form2' type='email' />
-        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' />
-        <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form2' type='password' />
+        <MDBInput wrapperClass='mb-4' label='Password' id='form3' type='password' />
+        <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' />
 
         <MDBBtn className='mb-4' size='lg' onClick={navigateHome} >Register</MDBBtn>
     </MDBContainer>
