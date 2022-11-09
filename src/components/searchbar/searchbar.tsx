@@ -35,7 +35,7 @@ interface ISearchBarProps {
 
   return (
     <MDBInputGroup style={{'marginTop': '2rem'}}>
-      <MDBInput label='Search' onChange={handleChange} />
+      <MDBInput label='Search' onChange={handleChange}/>
       <MDBBtn rippleColor='dark' onClick={handleClick}>
         <MDBIcon icon='search' />
       </MDBBtn>

@@ -1,5 +1,4 @@
-import { request } from 'https';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { User } from "../../models/user";
 import RecipeCard from "../recipecard/recipecard";
 import SearchBar from "../searchbar/searchbar";
@@ -12,26 +11,7 @@ interface IRecipeProps{
 
 function Recipes(props: IRecipeProps){
     const [recipes, setRecipes] = useState([]); 
-
-    // async function getRecipes(currentUser: number | undefined) {
-        
-    //     const res = await fetch(`http://localhost:8080/recipes/`, { // ${currentUser}
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': "*"
-    //     }}) 
-    //     const data = await res.json();
-    //     setRecipes(Object.assign(data));
-    
-    // }
-
-    // useEffect(()=>{
-    //     getRecipes(1); // props.currentUser?.getId
-    //     setfetchStatus(status.DONE);
-    // },[]);
-
-    
+   
     return(
         <>
         <header>
