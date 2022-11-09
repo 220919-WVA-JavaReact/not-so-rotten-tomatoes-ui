@@ -28,7 +28,7 @@ function RecipeCard(props: IRecipeCardProps) {
           <MDBCardText>
             {props.instructions}
           </MDBCardText>
-          <MDBBtn href='#'>Reviews</MDBBtn>
+          <MDBBtn href='#'>See More</MDBBtn>
         </MDBCardBody>
       </MDBCard>
     );
