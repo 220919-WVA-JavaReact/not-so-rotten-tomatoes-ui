@@ -24,7 +24,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login currentUser={authUser} setCurrentUser={setAuthUser} />} />
       <Route path="/register" element={<Register currentUser={authUser} setCurrentUser={setAuthUser}/>} />
-      <Route path="/dashboard" element={<Dashboard currentUser={authUser} />} />
+      <Route path="/dashboard" element={<Dashboard currentUser={authUser}/>} />
       <Route path="/recipes" element ={<Recipes currentUser={authUser} />} />
       </Routes>
     </BrowserRouter>
