@@ -1,20 +1,17 @@
-import { MDBInputGroup, MDBInput, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBIcon, MDBInput, MDBInputGroup } from 'mdb-react-ui-kit';
 
- function SearchBar() {
-  
+function SearchBar() {
   function handleClick(): any {
     console.log('Search clicked');
   }
 
-
   return (
-    <MDBInputGroup>
-      <MDBInput label='Search' />
-      <MDBBtn rippleColor='dark' onClick={handleClick}>
-        <MDBIcon icon='search' />
+    <MDBInputGroup style={{ paddingTop: '20px' }}>
+      <MDBInput label="Search" />
+      <MDBBtn rippleColor="dark" onClick={handleClick}>
+        <MDBIcon icon="search" />
       </MDBBtn>
     </MDBInputGroup>
-
   );
 }
 

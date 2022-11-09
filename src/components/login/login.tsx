@@ -1,23 +1,21 @@
+import {
+  MDBBtn,
+  MDBCheckbox,
+  MDBContainer,
+  MDBIcon,
+  MDBInput,
+} from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
-import {
-  MDBContainer,
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn,
-  MDBIcon
-}
-from 'mdb-react-ui-kit';
 
 interface ILoginProps {
-  currentUser: User | undefined,
-  setCurrentUser: (nextUser: User) => void
+  currentUser: User | undefined;
+  setCurrentUser: (nextUser: User) => void;
 }
 
-function Login(props: ILoginProps){
-
-     //Destructuring assignment -- sets username to first ele of userState array, and setUsername to the second ele of userState array.
+function Login(props: ILoginProps) {
+  //Destructuring assignment -- sets username to first ele of userState array, and setUsername to the second ele of userState array.
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,56 +35,70 @@ function Login(props: ILoginProps){
       setErrorMessage('You must have a valid username and password');
     } else {
       setErrorMessage('');
-    
-      let response = await fetch(
-        'http://localhost:8080/auth',  {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
 
-                },
-                //credentials: 'include', //property needed to work with java http sessions. Not necessary for JWTs
-                body: JSON.stringify({ username, password }),
-              }
-      );
+      let response = await fetch('http://localhost:8080/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        //credentials: 'include', //property needed to work with java http sessions. Not necessary for JWTs
+        body: JSON.stringify({ username, password }),
+      });
 
       if (response.status === 200) {
         logout = true;
         let token = response.headers.get('Authorization');
         console.log('Authorization: ' + response.headers.get('Authorization'));
-        if (token){
+        if (token) {
           sessionStorage.setItem('token', token);
         }
         props.setCurrentUser(await response.json());
-
       } else {
         setErrorMessage('Could not validate the provided credentials');
       }
     }
   };
 
-  return(
-    props.currentUser ?
-      <Navigate to="/dashboard" />
-      :
-
+  return props.currentUser ? (
+    <Navigate to="/dashboard" />
+  ) : (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-
-      <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username' onChange={updateUsername}/>
-      <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={updatePassword}/>
+      <MDBInput
+        wrapperClass="mb-4"
+        label="Username"
+        id="form1"
+        type="username"
+        onChange={updateUsername}
+      />
+      <MDBInput
+        wrapperClass="mb-4"
+        label="Password"
+        id="form2"
+        type="password"
+        onChange={updatePassword}
+      />
       <div>
         <p>{errorMessage}</p>
       </div>
 
       <div className="d-flex justify-content-between mx-3 mb-4">
-        <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+        <MDBCheckbox
+          name="flexCheck"
+          value=""
+          id="flexCheckDefault"
+          label="Remember me"
+        />
         <a href="!#">Forgot password?</a>
       </div>
 
-      <MDBBtn className="mb-4" onClick={login}>Sign in</MDBBtn>
+      <MDBBtn className="mb-4" onClick={login}>
+        Sign in
+      </MDBBtn>
 
       <div className="text-center">
-        <p>Not a member? <a href="/register">Register</a></p>
+        <p>
+          Not a member? <a href="/register">Register</a>
+        </p>
         {/* Might use later for SSO login??-------------------------------------
         <p>or sign up with:</p>
 
@@ -109,7 +121,6 @@ function Login(props: ILoginProps){
 
         </div> */}
       </div>
-
     </MDBContainer>
   );
 }
