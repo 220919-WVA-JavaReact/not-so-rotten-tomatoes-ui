@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.7",
     "bootstrap": "^5.2.2",
     "mdb-react-ui-kit": "^5.0.0",
+    "puppeteer": "^19.2.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
