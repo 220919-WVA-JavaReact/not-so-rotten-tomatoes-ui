@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -21,6 +21,54 @@ interface IRegisterProps {
 }
 
 function Register(props: IRegisterProps){
+
+  //register feature, takes in email, username, and password and persists to database
+
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  let register = async (e: SyntheticEvent) => {
+    if (!email || !username || !password){
+      //if a field is not filled out then throw an error message
+      setErrorMessage('Please enter valid credentials');
+    }else {
+      setErrorMessage('');
+
+      let response = await fetch(
+        'http://localhost:8080/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email, username, password}),
+        }
+      );
+
+        //if the user is able to login then get the headers and save the token to the session storage aka logging in once registered
+      if (response.status === 200) {
+        let token = response.headers.get('Authorization');
+        console.log('Authorization: ' + response.headers.get('Authorization'));
+        if (token){
+          sessionStorage.setItem('token', token);
+        }
+        props.setCurrentUser(await response.json());
+
+      } else {
+        setErrorMessage('Could not validate the provided credentials');
+      }
+
+
+    }
+  }
+
+  const navigateHome = () => {
+    <Navigate to="/dashboard"/>
+  }
+
+
+
     return(
       props.currentUser? // condition to be evaluated, ie: if(user)
         // <p> Welcome {props.currentUser.username}! </p> // if true
@@ -31,10 +79,10 @@ function Register(props: IRegisterProps){
 
         <MDBInput wrapperClass='mb-4' label='Your Name' id='form1' type='username' />
         <MDBInput wrapperClass='mb-4' label='Your Email' id='form2' type='email' />
-        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' />
-        <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form2' type='password' />
+        <MDBInput wrapperClass='mb-4' label='Password' id='form3' type='password' />
+        <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' />
 
-        <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
+        <MDBBtn className='mb-4' size='lg' onClick={navigateHome} >Register</MDBBtn>
     </MDBContainer>
     );
 }

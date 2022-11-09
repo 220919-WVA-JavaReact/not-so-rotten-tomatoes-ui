@@ -4,17 +4,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { User } from '../../models/user';
+import { SyntheticEvent, useState } from 'react';
+
 
 interface INaviBar {
   currentUser: User | undefined,
   setCurrentUser: (nextUser: User | undefined) => void
 }
 
-function NaviBar(props: INaviBar){
+export function logout(){
+  //const [user, setCurrentUser] = useState(''); 
+  sessionStorage.removeItem('token');
+};
 
-  function logout() {
-    props.setCurrentUser(undefined);
-  }
+function NaviBar(props: INaviBar){
 
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -42,7 +45,7 @@ function NaviBar(props: INaviBar){
             </NavDropdown> */}
           </Nav>
           <Nav>
-            <Nav.Link href="logout">Logout</Nav.Link>
+            <Nav.Link href="logout" onClick={logout}>Logout</Nav.Link>
           </Nav>
                       </>
                       :
