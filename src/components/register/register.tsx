@@ -44,8 +44,10 @@ function Register(props: IRegisterProps){
 
 
   let register = async (e: SyntheticEvent) => {
+    //console.log("step 1")
     if (!email || !username || !password){
       //if a field is not filled out then throw an error message
+      //console.log('nope')
       setErrorMessage('Please enter valid credentials');
     }else {
       setErrorMessage('');
@@ -63,7 +65,7 @@ function Register(props: IRegisterProps){
         //if the user is able to login then get the headers and save the token to the session storage aka logging in once registered
       if (response.status === 200) {
         let token = response.headers.get('Authorization');
-        console.log('Authorization: ' + response.headers.get('Authorization'));
+        //console.log('Authorization: ' + response.headers.get('Authorization'));
         if (token){
           sessionStorage.setItem('token', token);
         }
