@@ -10,7 +10,7 @@ interface IRecipeProps {
 
 function Recipes(props: IRecipeProps) {
   const [recipes, setRecipes] = useState([]);
-
+  console.log(recipes);
   return (
     <>
       <header>
