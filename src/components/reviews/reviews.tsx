@@ -59,7 +59,7 @@ function Reviews(props: IReviewProps) {
                   <ReviewCard
                     author={review.author.username}
                     text={review.review_text}
-                    key={review.author.id}
+                    key={review.review_id}
                   />
                 );
               })}
