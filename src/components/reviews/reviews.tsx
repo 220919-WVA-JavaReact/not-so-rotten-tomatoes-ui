@@ -10,15 +10,20 @@ import {
   MDBRow,
 } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
+import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
+import AddReview from '../addreview/addreview';
 import ReviewCard from '../reviewcard/reviewcard';
 
 interface IReviewProps {
   id: number | string | undefined;
+  currentUser: User | undefined;
+  setCurrentUser: (nextUser: User | undefined) => void;
 }
 
 function Reviews(props: IReviewProps) {
   const [reviews, setReviews] = useState([]);
+  const [authUser, setAuthUser] = useState<User>();
 
   async function getReviews() {
     const result = await fetch(
@@ -49,10 +54,15 @@ function Reviews(props: IReviewProps) {
             style={{ backgroundColor: '#f0f2f5' }}
           >
             <MDBCardBody>
-              <MDBInput
+              {/* <MDBInput
                 wrapperClass="mb-4"
                 placeholder="Type comment..."
                 label="+ Add a note"
+              /> */}
+              <AddReview
+                currentUser={authUser}
+                setCurrentUser={setAuthUser}
+                recipe_id={props.id}
               />
               {reviews.map((review: any) => {
                 return (

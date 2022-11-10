@@ -11,9 +11,16 @@ import {
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
 
+interface IMoreInfoProps {
+  currentUser: User | undefined;
+  setCurrentUser: (nextUser: User | undefined) => void;
+}
+
 function MoreInfoCard() {
+  const [authUser, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
   let { id } = useParams();
 
@@ -62,7 +69,11 @@ function MoreInfoCard() {
         </MDBCol>
         <MDBCol>
           <h2>Reviews</h2>
-          <Reviews id={id} />
+          <Reviews
+            id={id}
+            currentUser={authUser}
+            setCurrentUser={setAuthUser}
+          />
         </MDBCol>
       </MDBRow>
     </MDBCard>
