@@ -11,6 +11,11 @@ import {
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { isPropertySignature } from 'typescript';
+import Update from '../updaterecipe/update';
+
+//TODO: SET EDITING TRUE HERE.
+const [editing, setEditing] = useState(false);
 
 function MoreInfoCard() {
   const [recipe, setRecipe] = useState<any>({});
@@ -33,6 +38,7 @@ function MoreInfoCard() {
 
 
   return (
+    <div>
     recipe?
     <MDBCard>
       <MDBRow>
@@ -47,6 +53,7 @@ function MoreInfoCard() {
         <MDBCardText>
           {recipe.instructions}
         </MDBCardText>
+        <MDBBtn onClick={()=>!editing}>Edit</MDBBtn>
       </MDBCol>
       <MDBCol>
         <h2>Reviews</h2>
@@ -54,7 +61,17 @@ function MoreInfoCard() {
     </MDBRow>
   </MDBCard>
     :
-    <div>Loading Recipe...</div>
+    <div>Loading Recipe...</div> 
+    <div>
+    {editing ? <Update 
+    id={recipe.id} 
+    author={recipe.author} 
+    recipe_name={recipe.recipe_name}
+    instructions={recipe.instructions}
+    category={recipe.category}
+    /> : <></>}
+    </div>
+    </div>
   );
 }
 
