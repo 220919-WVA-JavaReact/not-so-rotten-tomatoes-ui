@@ -13,7 +13,8 @@ function Home() {
         src="https://foodtank.com/wp-content/uploads/2022/05/Food-As-Medicine-Featured.jpg"
         alt="..."
       >
-        <h3 style={{ backgroundColor: '#777' }}>
+        {/* style={{ backgroundColor: '#777' }} */}
+        <h3>
           <a
             href="/register"
             style={{ color: 'white', textDecoration: 'none' }}
@@ -31,7 +32,7 @@ function Home() {
         src="https://www.refrigeratedfrozenfood.com/ext/resources/NEW_RD_Website/DefaultImages/default-pasta.jpg?1430942591"
         alt="..."
       >
-        <h3 style={{ backgroundColor: '#777' }}>
+        <h3>
           <a
             href="/register"
             style={{ color: 'white', textDecoration: 'none' }}
@@ -50,7 +51,7 @@ function Home() {
         src="https://www.westcentralfoodservice.com/wp-content/uploads/2019/04/5-food-trends-2019-no-title.jpg"
         alt="..."
       >
-        <h3 style={{ backgroundColor: '#777' }}>
+        <h3>
           <a
             href="/register"
             style={{ color: 'white', textDecoration: 'none' }}

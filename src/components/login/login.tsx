@@ -88,7 +88,6 @@ function Login(props: ILoginProps) {
           id="flexCheckDefault"
           label="Remember me"
         />
-        <a href="!#">Forgot password?</a>
       </div>
 
       <MDBBtn className="mb-4" onClick={login}>

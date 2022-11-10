@@ -1,40 +1,46 @@
 import {
+  MDBBtn,
   MDBCard,
-  MDBCardTitle,
-  MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBRow,
+  MDBCardText,
+  MDBCardTitle,
   MDBCol,
   MDBRipple,
-  MDBBtn
+  MDBRow,
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
 
+interface IMoreInfoProps {
+  currentUser: User | undefined;
+  setCurrentUser: (nextUser: User | undefined) => void;
+}
+
 function MoreInfoCard() {
+  const [authUser, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
-  let {id} = useParams();
+  let { id } = useParams();
 
   async function getRecipe() {
-    const res = await fetch(`http://localhost:8080/recipes/${id}`, { 
+    const res = await fetch(`http://localhost:8080/recipes/${id}`, {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': "*"
-      }})
-      const data = await res.json();
-      setRecipe(Object.assign(data));
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+    const data = await res.json();
+    setRecipe(Object.assign(data));
   }
 
-  useEffect( () => {
+  useEffect(() => {
     getRecipe();
   }, []);
 
-
-  return (
-    recipe?
+  return recipe ? (
     <MDBCard>
       <MDBRow>
       <MDBCol>
@@ -50,13 +56,12 @@ function MoreInfoCard() {
         </MDBCardText>
       </MDBCol>
       <MDBCol>
-        <Reviews id={recipe.recipe_id} />
+        <Reviews id={recipe.recipe_id} currentUser={authUser} setCurrentUser={setAuthUser} />
       </MDBCol>
     </MDBRow>
-  </MDBCard>
+  </MDBCard>)
     :
     <div>Loading Recipe...</div>
-  );
 }
 
 export default MoreInfoCard;
