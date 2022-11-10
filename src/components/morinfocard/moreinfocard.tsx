@@ -11,6 +11,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Reviews from '../reviews/reviews';
 
 function MoreInfoCard() {
   const [recipe, setRecipe] = useState<any>({});
@@ -49,7 +50,7 @@ function MoreInfoCard() {
         </MDBCardText>
       </MDBCol>
       <MDBCol>
-        <h2>Reviews</h2>
+        <Reviews id={recipe.recipe_id} />
       </MDBCol>
     </MDBRow>
   </MDBCard>
