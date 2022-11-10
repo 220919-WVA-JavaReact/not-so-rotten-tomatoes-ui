@@ -19,7 +19,7 @@ function Recipes(props: IRecipeProps){
         </header>
         <div className='grid'>
             {recipes.map((recipe: any) => {
-                return <div className='g-col-4' key={recipe.recipe_id}> <RecipeCard name={recipe.recipe_name} key={recipe.author.id} category={recipe.category} instructions={recipe.instructions}/></div>
+                return <div className='g-col-4' key={recipe.recipe_id}> <RecipeCard id={recipe.recipe_id} name={recipe.recipe_name} key={recipe.author.id} category={recipe.category} instructions={recipe.instructions}/></div>
             })}
         </div>
         </>

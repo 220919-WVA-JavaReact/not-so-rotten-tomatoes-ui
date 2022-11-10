@@ -11,6 +11,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/dashboard/dashboard';
 import Recipes from './components/recipes/recipes';
+import MoreInfoCard from './components/morinfocard/moreinfocard';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/register" element={<Register currentUser={authUser} setCurrentUser={setAuthUser}/>} />
       <Route path="/dashboard" element={<Dashboard currentUser={authUser}/>} />
       <Route path="/recipes" element ={<Recipes currentUser={authUser} />} />
+      <Route path='/recipes/:id' element ={<MoreInfoCard />} />
       </Routes>
     </BrowserRouter>
   );
