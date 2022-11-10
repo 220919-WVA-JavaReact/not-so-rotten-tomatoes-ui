@@ -12,7 +12,7 @@ interface IRecipeProps {
 function Recipes(props: IRecipeProps) {
   const [recipes, setRecipes] = useState([]);
   console.log(recipes);
-  return props.currentUser ? (
+  return (
     <>
       <header>
         <SearchBar recipes={recipes} setRecipes={setRecipes} />
@@ -33,8 +33,8 @@ function Recipes(props: IRecipeProps) {
         })}
       </div>
     </>
-  ) : (
-    <Navigate to="/login" />
+    // ) : (
+    //   <Navigate to="/login" />
   );
 }
 
