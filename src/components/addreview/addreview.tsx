@@ -4,7 +4,6 @@ import { User } from '../../models/user';
 
 interface IAddReviewProps {
   currentUser: User | undefined;
-  setCurrentUser: (nextUser: User | undefined) => void;
   recipe_id: number | string | undefined;
 }
 

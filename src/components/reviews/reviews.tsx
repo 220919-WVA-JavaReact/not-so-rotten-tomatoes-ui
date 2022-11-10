@@ -59,11 +59,7 @@ function Reviews(props: IReviewProps) {
                 placeholder="Type comment..."
                 label="+ Add a note"
               /> */}
-              <AddReview
-                currentUser={authUser}
-                setCurrentUser={setAuthUser}
-                recipe_id={props.id}
-              />
+              <AddReview currentUser={authUser} recipe_id={props.id} />
               {reviews.map((review: any) => {
                 return (
                   <ReviewCard
