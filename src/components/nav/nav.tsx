@@ -1,10 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { SyntheticEvent, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
 import { User } from '../../models/user';
 
 interface INaviBar {
@@ -22,14 +21,20 @@ function NaviBar(props: INaviBar) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">NSRT</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          NSRT
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {props.currentUser ? (
             <>
               <Nav className="me-auto">
-                <Nav.Link href="dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="recipes">Recipes</Nav.Link>
+                <Nav.Link as={Link} to="/dashboard">
+                  Dashboard
+                </Nav.Link>
+                <Nav.Link as={Link} to="/recipes">
+                  Recipes
+                </Nav.Link>
                 {/* Maybe utilize later? ---------------------------------- 
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -44,19 +49,19 @@ function NaviBar(props: INaviBar) {
             </NavDropdown> */}
               </Nav>
               <Nav>
-                <Nav.Link href="login" onClick={logout}>
+                <Nav.Link as={Link} to="/login" onClick={logout}>
                   Logout
                 </Nav.Link>
               </Nav>
             </>
           ) : (
             <Nav className="me-auto">
-              <Nav>
-                <Nav.Link href="login">Login</Nav.Link>
-                <Nav.Link eventKey={2} href="register">
-                  Register
-                </Nav.Link>
-              </Nav>
+              <Nav.Link as={Link} to="login">
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} eventKey={2} to="/register">
+                Register
+              </Nav.Link>
             </Nav>
           )}
         </Navbar.Collapse>
