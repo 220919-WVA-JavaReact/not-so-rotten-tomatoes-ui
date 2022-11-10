@@ -1,59 +1,72 @@
 import {
+  MDBBtn,
   MDBCard,
-  MDBCardTitle,
-  MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBRow,
+  MDBCardText,
+  MDBCardTitle,
   MDBCol,
   MDBRipple,
-  MDBBtn
+  MDBRow,
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Reviews from '../reviews/reviews';
 
 function MoreInfoCard() {
   const [recipe, setRecipe] = useState<any>({});
-  let {id} = useParams();
+  let { id } = useParams();
 
   async function getRecipe() {
-    const res = await fetch(`http://localhost:8080/recipes/${id}`, { 
+    const res = await fetch(`http://localhost:8080/recipes/${id}`, {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': "*"
-      }})
-      const data = await res.json();
-      setRecipe(Object.assign(data));
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+    const data = await res.json();
+    setRecipe(Object.assign(data));
   }
 
-  useEffect( () => {
+  useEffect(() => {
     getRecipe();
   }, []);
 
-
-  return (
-    recipe?
+  return recipe ? (
     <MDBCard>
       <MDBRow>
-      <MDBCol>
-        <MDBRipple rippleColor='dark' rippleTag='div' className='bg-image hover-overlay'>
-          <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp' fluid style={{ maxHeight: '300px'}} alt='...' />
-          <a>
-          <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
-        </a>
-        </MDBRipple>
-        <MDBCardTitle>{recipe.recipe_name} - {id}</MDBCardTitle>
-        <MDBCardText>
-          {recipe.instructions}
-        </MDBCardText>
-      </MDBCol>
-      <MDBCol>
-        <h2>Reviews</h2>
-      </MDBCol>
-    </MDBRow>
-  </MDBCard>
-    :
+        <MDBCol>
+          <MDBRipple
+            rippleColor="dark"
+            rippleTag="div"
+            className="bg-image hover-overlay"
+          >
+            <MDBCardImage
+              src="https://mdbootstrap.com/img/new/standard/nature/111.webp"
+              fluid
+              style={{ maxHeight: '300px' }}
+              alt="..."
+            />
+            <a>
+              <div
+                className="mask"
+                style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}
+              ></div>
+            </a>
+          </MDBRipple>
+          <MDBCardTitle>
+            {recipe.recipe_name} - {id}
+          </MDBCardTitle>
+          <MDBCardText>{recipe.instructions}</MDBCardText>
+        </MDBCol>
+        <MDBCol>
+          <h2>Reviews</h2>
+          <Reviews id={id} />
+        </MDBCol>
+      </MDBRow>
+    </MDBCard>
+  ) : (
     <div>Loading Recipe...</div>
   );
 }

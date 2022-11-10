@@ -28,8 +28,12 @@ function NaviBar(props: INaviBar) {
           {props.currentUser ? (
             <>
               <Nav className="me-auto">
-                <Nav.Link href="dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="recipes">Recipes</Nav.Link>
+                <Nav.Link href="http://localhost:3000/dashboard">
+                  Dashboard
+                </Nav.Link>
+                <Nav.Link href="http://localhost:3000/recipes">
+                  Recipes
+                </Nav.Link>
                 {/* Maybe utilize later? ---------------------------------- 
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -44,7 +48,7 @@ function NaviBar(props: INaviBar) {
             </NavDropdown> */}
               </Nav>
               <Nav>
-                <Nav.Link href="login" onClick={logout}>
+                <Nav.Link href="http://localhost:3000/login" onClick={logout}>
                   Logout
                 </Nav.Link>
               </Nav>
@@ -52,8 +56,8 @@ function NaviBar(props: INaviBar) {
           ) : (
             <Nav className="me-auto">
               <Nav>
-                <Nav.Link href="login">Login</Nav.Link>
-                <Nav.Link eventKey={2} href="register">
+                <Nav.Link href="http://localhost:3000/login">Login</Nav.Link>
+                <Nav.Link eventKey={2} href="http://localhost:3000/register">
                   Register
                 </Nav.Link>
               </Nav>

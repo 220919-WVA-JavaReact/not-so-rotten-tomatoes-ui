@@ -14,7 +14,7 @@ import { User } from '../../models/user';
 import ReviewCard from '../reviewcard/reviewcard';
 
 interface IReviewProps {
-  id: number;
+  id: number | string | undefined;
 }
 
 function Reviews(props: IReviewProps) {
