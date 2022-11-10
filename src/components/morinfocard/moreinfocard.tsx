@@ -59,7 +59,7 @@ const [editing, setEditing] = useState(false);
         <MDBCardText>
           {recipe.instructions}
         </MDBCardText>
-        <MDBBtn onClick={()=>editToggle}>Edit</MDBBtn>
+        <MDBBtn onClick={editToggle}>Edit</MDBBtn>
       </MDBCol>
       <MDBCol>
         <h2>Reviews</h2>

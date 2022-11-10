@@ -27,7 +27,10 @@ function Update(props: IUpdateProps){
    
     const [recipe, setRecipe] = useState(props); //I SHOULD work.
 
-  
+    function editToggle(){
+        setEditing(!editing);
+        //setRecipe(props);
+      }
 
     function handleChange(e: SyntheticEvent){
         setRecipe({
@@ -55,42 +58,46 @@ function Update(props: IUpdateProps){
 
     return(
         <div>
+            <h2>You found the EDIT component!</h2>
+            {editing ? 
+            <div className='edit-true'> 
             
-            
-                <div className='edit-true'> 
-                <p>You are EDITING an existant RECIPE. with ID {props.id}</p> 
+            <p>You are EDITING an existant RECIPE. with ID {props.id}</p> 
 
-                <form onSubmit={handleSubmit}>
-                <label>Recipe name</label>
-                <input 
-                value={props.recipe_name}
-                id="recipe-name"
-                name="recipe_name"
-                onChange={handleChange}
-                />
+            <form onSubmit={handleSubmit}>
+            <label>Recipe name</label>
+            <input 
+            value={props.recipe_name}
+            id="recipe-name"
+            name="recipe_name"
+            onChange={handleChange}
+            />
 
-                <label>Instructions</label>
-                <input 
-                value={props.instructions}
-                id="instructions"
-                name="instructions"
-                onChange={handleChange}
-                />
+            <label>Instructions</label>
+            <input 
+            value={props.instructions}
+            id="instructions"
+            name="instructions"
+            onChange={handleChange}
+            />
 
-                <label>Category</label>
-                <input 
-                value={props.category}
-                id="category"
-                name="category"
-                onChange={handleChange}
-                />
+            <label>Category</label>
+            <input 
+            value={props.category}
+            id="category"
+            name="category"
+            onChange={handleChange}
+            />
 
-                </form>
+            </form>
 
-                <button>Cancel your CHANGES!</button>
-                {/*TODO: UPDATE ME TO WORK!!!*/}
-                <button onClick={handleSubmit}>SAVE your CHANGES!</button>
-                </div> 
+            <button>Cancel your CHANGES!</button>
+            {/*TODO: UPDATE ME TO WORK!!!*/}
+            <button onClick={handleSubmit}>SAVE your CHANGES!</button>
+            </div> 
+            : 
+            <></>}
+                
                 
             
             {/*NOTE: I ABOVE COME FROM PROPS, DO NOT CREATE HERE!*/}
