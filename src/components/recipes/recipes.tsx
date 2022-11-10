@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { User } from "../../models/user";
-import RecipeCard from "../recipecard/recipecard";
-import SearchBar from "../searchbar/searchbar";
+import { Navigate } from 'react-router-dom';
+import { User } from '../../models/user';
+import RecipeCard from '../recipecard/recipecard';
+import SearchBar from '../searchbar/searchbar';
 import './recipes.style.css';
 
-interface IRecipeProps{
-    currentUser: User | undefined;
+interface IRecipeProps {
+  currentUser: User | undefined;
 }
 
 
@@ -25,4 +26,5 @@ function Recipes(props: IRecipeProps){
         </>
     );
 }
+
 export default Recipes;

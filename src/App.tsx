@@ -1,33 +1,53 @@
-import React, { useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { User } from './models/user';
+import React, { useState } from 'react';
+import Home from './components/home/home';
 import Login from './components/login/login';
 import NaviBar from './components/nav/nav';
 import Register from './components/register/register';
-import Home from './components/home/home';
+import { User } from './models/user';
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/dashboard/dashboard';
 import Recipes from './components/recipes/recipes';
 import MoreInfoCard from './components/morinfocard/moreinfocard';
 
 function App() {
-
   //provide the state of the authorized user
   const [authUser, setAuthUser] = useState<User>();
 
   return (
     <BrowserRouter>
-    <NaviBar currentUser={authUser} setCurrentUser={setAuthUser} />
+      <NaviBar currentUser={authUser} setCurrentUser={setAuthUser} />
       <Routes>
+<<<<<<< HEAD
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login currentUser={authUser} setCurrentUser={setAuthUser} />} />
       <Route path="/register" element={<Register currentUser={authUser} setCurrentUser={setAuthUser}/>} />
       <Route path="/dashboard" element={<Dashboard currentUser={authUser}/>} />
       <Route path="/recipes" element ={<Recipes currentUser={authUser} />} />
       <Route path='/recipes/:id' element ={<MoreInfoCard />} />
+=======
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <Login currentUser={authUser} setCurrentUser={setAuthUser} />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register currentUser={authUser} setCurrentUser={setAuthUser} />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={<Dashboard currentUser={authUser} />}
+        />
+        <Route path="/recipes" element={<Recipes currentUser={authUser} />} />
+>>>>>>> 6dc1e08ad5bac39065b500285fd62f997d59c4f1
       </Routes>
     </BrowserRouter>
   );
