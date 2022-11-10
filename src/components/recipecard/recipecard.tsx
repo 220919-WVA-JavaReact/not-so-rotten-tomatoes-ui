@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   MDBCard,
   MDBCardBody,
@@ -10,6 +8,7 @@ import {
 } from 'mdb-react-ui-kit';
 
 interface IRecipeCardProps{
+  id: number
   name: String,
   category: String,
   instructions: String
@@ -28,7 +27,7 @@ function RecipeCard(props: IRecipeCardProps) {
           <MDBCardText>
             {props.instructions}
           </MDBCardText>
-          <MDBBtn href='#'>See More</MDBBtn>
+          <MDBBtn href={`/recipes/${props.id}`}>See More</MDBBtn>
         </MDBCardBody>
       </MDBCard>
     );
