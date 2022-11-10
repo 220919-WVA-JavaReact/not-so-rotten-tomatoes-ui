@@ -14,10 +14,11 @@ import { useParams } from 'react-router-dom';
 import { isPropertySignature } from 'typescript';
 import Update from '../updaterecipe/update';
 
-//TODO: SET EDITING TRUE HERE.
-const [editing, setEditing] = useState(false);
+
 
 function MoreInfoCard() {
+  //TODO: SET EDITING TRUE HERE.
+const [editing, setEditing] = useState(false);
   const [recipe, setRecipe] = useState<any>({});
   let {id} = useParams();
 
@@ -36,10 +37,15 @@ function MoreInfoCard() {
     getRecipe();
   }, []);
 
+    function editToggle(){
+      setEditing(!editing);
+      setRecipe(recipe);
+    }
 
   return (
     <div>
-    recipe?
+    {recipe ?
+    <>
     <MDBCard>
       <MDBRow>
       <MDBCol>
@@ -53,16 +59,21 @@ function MoreInfoCard() {
         <MDBCardText>
           {recipe.instructions}
         </MDBCardText>
-        <MDBBtn onClick={()=>!editing}>Edit</MDBBtn>
+        <MDBBtn onClick={()=>editToggle}>Edit</MDBBtn>
       </MDBCol>
       <MDBCol>
         <h2>Reviews</h2>
       </MDBCol>
     </MDBRow>
   </MDBCard>
+  </>
     :
+    
     <div>Loading Recipe...</div> 
-    <div>
+  }
+    
+    
+    
     {editing ? <Update 
     id={recipe.id} 
     author={recipe.author} 
@@ -70,7 +81,7 @@ function MoreInfoCard() {
     instructions={recipe.instructions}
     category={recipe.category}
     /> : <></>}
-    </div>
+    
     </div>
   );
 }

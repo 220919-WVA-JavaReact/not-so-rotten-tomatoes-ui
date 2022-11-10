@@ -16,20 +16,18 @@ interface IUpdateProps{
     recipe_name: String | any,
     instructions: any,
     category: any
+    
 }
 
 function Update(props: IUpdateProps){
     
     //...recall unit 3 final project, use that for stuff
     //finally, send PATCH request with the updated info
-    const [editing, setEditing] = useState(false); //I initialize to false, which means, on every re-render, I should be false.
+    const [editing, setEditing] = useState(true); //I initialize to false, which means, on every re-render, I should be false.
    
     const [recipe, setRecipe] = useState(props); //I SHOULD work.
 
-    function handleEditToggle () {
-        setEditing(!editing); 
-        setRecipe(initialRecipe); //TODO: GET THIS FROM PATCH REQUEST API CALL!
-    }
+  
 
     function handleChange(e: SyntheticEvent){
         setRecipe({
@@ -58,8 +56,7 @@ function Update(props: IUpdateProps){
     return(
         <div>
             
-            {
-                editing ? 
+            
                 <div className='edit-true'> 
                 <p>You are EDITING an existant RECIPE. with ID {props.id}</p> 
 
@@ -90,19 +87,12 @@ function Update(props: IUpdateProps){
 
                 </form>
 
-                <button onClick={handleEditToggle}>Cancel your CHANGES!</button>
+                <button>Cancel your CHANGES!</button>
+                {/*TODO: UPDATE ME TO WORK!!!*/}
                 <button onClick={handleSubmit}>SAVE your CHANGES!</button>
                 </div> 
-                : 
                 
-                <div className='edit-false'> 
-                <p>RECIPE: {props.recipe_name}</p> 
-                <p>AUTHOR: {props.author}</p>
-                <p>INSTRUCTIONS: {props.instructions}</p>
-                <p>CATEGORY: {props.category}</p>
-                <button onClick={handleEditToggle}>Clicka Me To Edit!</button>
-                </div>
-            }
+            
             {/*NOTE: I ABOVE COME FROM PROPS, DO NOT CREATE HERE!*/}
         </div>
     )
