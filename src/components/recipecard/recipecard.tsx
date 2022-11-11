@@ -29,9 +29,9 @@ function RecipeCard(props: IRecipeCardProps) {
         <MDBCardTitle>{props.name}</MDBCardTitle>
         <MDBCardText>{props.category}</MDBCardText>
         <MDBCardText>{props.instructions}</MDBCardText>
-        <MDBBtn>
-          <Link to={`/recipes/${props.id}`}>See More</Link>
-        </MDBBtn>
+        <Link to={`/recipes/${props.id}`}>
+          <MDBBtn>See More</MDBBtn>
+        </Link>
       </MDBCardBody>
     </MDBCard>
   );
