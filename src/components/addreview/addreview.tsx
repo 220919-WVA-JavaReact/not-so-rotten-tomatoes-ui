@@ -18,10 +18,10 @@ function AddReview(props: IAddReviewProps) {
   };
 
   async function postReview() {
-    const author = props.currentUser;
+    const authorid = props.currentUser?.id;
     const recipe_id = props.recipe;
     const token = sessionStorage.getItem('token');
-    console.log(author);
+    console.log(authorid);
 
     const result = await fetch(
       `http://localhost:8080/reviews/recipe/${props.recipe.id}`,
@@ -32,7 +32,7 @@ function AddReview(props: IAddReviewProps) {
           'Access-Control-Allow-Origin': '*',
           Authorization: `${token}`,
         },
-        body: JSON.stringify({ review_text, author, recipe_id }),
+        body: JSON.stringify({ authorid, review_text, recipe_id }),
       }
     );
     const data = await result.json();
