@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
+import Update from '../update/update';
 
 interface IMoreInfoProps {
   currentUser: User | undefined;
@@ -26,7 +27,13 @@ interface IMoreInfoProps {
 function MoreInfoCard(props: IMoreInfoProps) {
   const [authUser, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
+  const [editing, setEditing] = useState(false); //needed for conditional rendering of update component
   let { id } = useParams();
+
+  function handleEditClick(){
+    setEditing(true);
+  }
+
 
   async function getRecipe() {
     const res = await fetch(`http://localhost:8080/recipes/${id}`, {
@@ -81,6 +88,14 @@ function MoreInfoCard(props: IMoreInfoProps) {
           />
         </MDBCol>
       </MDBRow>
+      <MDBBtn onClick={handleEditClick}>EDIT</MDBBtn>
+      {editing ? <Update 
+        id={id}
+        author={recipe.author}
+        recipe_name={recipe.recipe_name}
+        instructions={recipe.instructions}
+        category={recipe.category}
+        /> : <></>}
     </MDBCard>
   ) : (
     <div>Loading Recipe...</div>
