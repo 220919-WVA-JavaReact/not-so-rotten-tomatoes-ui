@@ -1,32 +1,40 @@
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useEffect, useState } from 'react';
+import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 
 interface IAddReviewProps {
   currentUser: User | undefined;
   recipe_id: number | string | undefined;
+  recipe: Recipe;
 }
 
 function AddReview(props: IAddReviewProps) {
   const [reviews, setReviews] = useState([]);
-  const [reviewText, setReviewText] = useState('');
+  const [review_text, setReviewText] = useState('');
 
   let updateReviewText = (e: SyntheticEvent) => {
     setReviewText((e.target as HTMLInputElement).value);
   };
 
   async function postReview() {
-    const author = props.currentUser?.id;
-    const recipeid = Number(props.recipe_id);
+    const authorid = props.currentUser?.id;
+    const recipe_id = props.recipe;
+    const token = sessionStorage.getItem('token');
+    console.log(authorid);
 
-    const result = await fetch(`http://localhost:8080/reviews`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ author, reviewText, recipeid }),
-    });
+    const result = await fetch(
+      `http://localhost:8080/reviews/recipe/${props.recipe.id}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({ authorid, review_text, recipe_id }),
+      }
+    );
     const data = await result.json();
     // console.log(data);
     setReviews(Object.assign(data));
