@@ -9,7 +9,7 @@ interface IAddReviewProps {
 
 function AddReview(props: IAddReviewProps) {
   const [reviews, setReviews] = useState([]);
-  const [reviewText, setReviewText] = useState('');
+  const [review_text, setReviewText] = useState('');
 
   let updateReviewText = (e: SyntheticEvent) => {
     setReviewText((e.target as HTMLInputElement).value);
@@ -17,16 +17,22 @@ function AddReview(props: IAddReviewProps) {
 
   async function postReview() {
     const author = props.currentUser?.id;
-    const recipeid = Number(props.recipe_id);
+    const recipe_id = props.recipe_id;
+    const token = sessionStorage.getItem('token');
+    console.log(token);
 
-    const result = await fetch(`http://localhost:8080/reviews`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ author, reviewText, recipeid }),
-    });
+    const result = await fetch(
+      `http://localhost:8080/reviews/recipe/${recipe_id}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({ author, review_text, recipe_id }),
+      }
+    );
     const data = await result.json();
     // console.log(data);
     setReviews(Object.assign(data));

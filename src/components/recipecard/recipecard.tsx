@@ -6,6 +6,7 @@ import {
   MDBCardText,
   MDBCardTitle,
 } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
 interface IRecipeCardProps {
   id: number;
@@ -26,7 +27,9 @@ function RecipeCard(props: IRecipeCardProps) {
         <MDBCardTitle>{props.name}</MDBCardTitle>
         <MDBCardText>{props.category}</MDBCardText>
         <MDBCardText>{props.instructions}</MDBCardText>
-        <MDBBtn href={`/recipes/${props.id}`}>See More</MDBBtn>
+        <MDBBtn>
+          <Link to={`/recipes/${props.id}`}>See More</Link>
+        </MDBBtn>
       </MDBCardBody>
     </MDBCard>
   );
