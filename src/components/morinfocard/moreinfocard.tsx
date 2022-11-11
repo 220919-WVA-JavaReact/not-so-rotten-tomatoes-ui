@@ -84,7 +84,6 @@ function MoreInfoCard(props: IMoreInfoProps) {
     </MDBCard>
   ) : (
     <div>Loading Recipe...</div>
-  );
-}
+)}
 
 export default MoreInfoCard;
