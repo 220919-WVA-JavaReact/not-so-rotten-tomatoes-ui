@@ -7,8 +7,10 @@ import {
   MDBCardTitle,
 } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import { User } from '../../models/user';
 
 interface IRecipeCardProps {
+  currentUser: User | undefined;
   id: number;
   name: String;
   category: String;

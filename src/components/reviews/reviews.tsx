@@ -19,6 +19,7 @@ interface IReviewProps {
   id: number | string | undefined;
   currentUser: User | undefined;
   setCurrentUser: (nextUser: User | undefined) => void;
+  recipe: Recipe;
 }
 
 function Reviews(props: IReviewProps) {
@@ -59,7 +60,11 @@ function Reviews(props: IReviewProps) {
                 placeholder="Type comment..."
                 label="+ Add a note"
               /> */}
-              <AddReview currentUser={authUser} recipe_id={props.id} />
+              <AddReview
+                currentUser={props.currentUser}
+                recipe_id={props.recipe.id}
+                recipe={props.recipe}
+              />
               {reviews.map((review: any) => {
                 return (
                   <ReviewCard

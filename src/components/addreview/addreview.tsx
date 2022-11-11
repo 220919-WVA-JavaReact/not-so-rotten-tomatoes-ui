@@ -1,10 +1,12 @@
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useEffect, useState } from 'react';
+import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 
 interface IAddReviewProps {
   currentUser: User | undefined;
   recipe_id: number | string | undefined;
+  recipe: Recipe;
 }
 
 function AddReview(props: IAddReviewProps) {
@@ -16,13 +18,13 @@ function AddReview(props: IAddReviewProps) {
   };
 
   async function postReview() {
-    const author = props.currentUser?.id;
-    const recipe_id = props.recipe_id;
+    const author = props.currentUser;
+    const recipe_id = props.recipe;
     const token = sessionStorage.getItem('token');
-    console.log(token);
+    console.log(author);
 
     const result = await fetch(
-      `http://localhost:8080/reviews/recipe/${recipe_id}`,
+      `http://localhost:8080/reviews/recipe/${props.recipe.id}`,
       {
         method: 'POST',
         headers: {
@@ -30,7 +32,7 @@ function AddReview(props: IAddReviewProps) {
           'Access-Control-Allow-Origin': '*',
           Authorization: `${token}`,
         },
-        body: JSON.stringify({ author, review_text, recipe_id }),
+        body: JSON.stringify({ review_text, author, recipe_id }),
       }
     );
     const data = await result.json();
