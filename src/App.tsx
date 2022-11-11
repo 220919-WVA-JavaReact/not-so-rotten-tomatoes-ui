@@ -11,13 +11,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/dashboard/dashboard';
 import MoreInfoCard from './components/morinfocard/moreinfocard';
-<<<<<<< HEAD
 import NewRecipe from './components/newrecipe/newrecipe';
 import Recipes from './components/recipes/recipes';
 import { Recipe } from './models/recipe';
-=======
-import NewRecipe from './components/newrcipe/newrecipe';
->>>>>>> c5ad2065a35270729a146e69829f74602be10da0
 
 function App() {
   //provide the state of the authorized user
@@ -28,7 +24,6 @@ function App() {
     <BrowserRouter>
       <NaviBar currentUser={authUser} setCurrentUser={setAuthUser} />
       <Routes>
-<<<<<<< HEAD
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
@@ -63,15 +58,6 @@ function App() {
           }
         />
         <Route path="/" element={<Home />} />
-=======
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login currentUser={authUser} setCurrentUser={setAuthUser} />} />
-      <Route path="/register" element={<Register currentUser={authUser} setCurrentUser={setAuthUser}/>} />
-      <Route path="/dashboard" element={<Dashboard currentUser={authUser}/>} />
-      <Route path='/recipes/new' element ={<NewRecipe currentUser={authUser}/>}/>
-      <Route path="/recipes" element ={<Recipes currentUser={authUser} />} />
-      <Route path='/recipes/:id' element ={<MoreInfoCard />} />
->>>>>>> c5ad2065a35270729a146e69829f74602be10da0
       </Routes>
     </BrowserRouter>
   );

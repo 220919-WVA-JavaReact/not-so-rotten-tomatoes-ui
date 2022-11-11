@@ -47,7 +47,6 @@ function MoreInfoCard(props: IMoreInfoProps) {
   return recipe ? (
     <MDBCard>
       <MDBRow>
-<<<<<<< HEAD
         <MDBCol>
           <MDBRipple
             rippleColor="dark"
@@ -84,27 +83,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
       </MDBRow>
     </MDBCard>
   ) : (
-=======
-      <MDBCol>
-        <MDBRipple rippleColor='dark' rippleTag='div' className='bg-image hover-overlay'>
-          <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp' fluid style={{ maxHeight: '300px'}} alt='...' />
-          <a>
-          <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
-        </a>
-        </MDBRipple>
-        <MDBCardTitle>{recipe.recipe_name} - {id}</MDBCardTitle>
-        <MDBCardText>
-          {recipe.instructions}
-        </MDBCardText>
-      </MDBCol>
-      <MDBCol>
-        <Reviews id={recipe.recipe_id} currentUser={authUser} setCurrentUser={setAuthUser} />
-      </MDBCol>
-    </MDBRow>
-  </MDBCard>)
-    :
->>>>>>> c5ad2065a35270729a146e69829f74602be10da0
     <div>Loading Recipe...</div>
-}
+)}
 
 export default MoreInfoCard;
