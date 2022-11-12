@@ -6,7 +6,7 @@ interface IUpdateProps{ //WHEN THIS ID WAS STRING | UNDEFINED , YOU GOT THAT 400
                         //ALSO AUTHOR WAS NUMBER. TRY TO CHANGE THESE, BUT STILL
                         //PULL IN THE PATH'S ID FROM PARAMS?
     id: number | any,
-    author: any,
+    author: number,
     recipe_name: String | any,
     instructions: String | any,
     category: String | any
@@ -50,7 +50,7 @@ function Update(props: IUpdateProps){
     }
 
     //TODO: I AM NOT PASSING CORRECT CREDENTIALS? FIX
-   async function handleSubmit(e: SyntheticEvent){
+ function handleSubmit(e: SyntheticEvent){
         fetch(`http://localhost:8080/recipes/${id}`, { //id from PARAMS
         method: 'PATCH',
         headers: { //TODO: ADD AUTH !
