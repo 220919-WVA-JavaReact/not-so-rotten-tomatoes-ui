@@ -15,13 +15,6 @@ interface IUpdateProps{ //WHEN THIS ID WAS STRING | UNDEFINED , YOU GOT THAT 400
 
 function Update(props: IUpdateProps){
 
-    //HEY FUTURE CLAIRE: YOU ARE GETTING THE ERROR BECAUSE THIS APP IS NOT
-    //CORRECTLY PASSING ALL THE INFO YOU NEED.
-    //START BY CONSOLE LOGGING YOUR SUBMIT HANDLER
-    //AND CHECK REACT DEV TOOLS
-    //HINT: 'INSTRUCTIONS' APPEARS TO BE MISSING FIRST. 
-    //
-
     let {id} = useParams(); //ID NOW FROM PROPS 
     const initialRecipe = { //ADDED BACK ID, AUTHOR
         id: props.id,
@@ -39,7 +32,7 @@ function Update(props: IUpdateProps){
 
     function editToggle(){
         setEditing(!editing);
-        //setRecipe(props);
+        //TODO:: I SHOULD UNMOUNT / I SHOULD RELOAD PAGE.
       }
 
     function handleChange(e: SyntheticEvent){
@@ -49,29 +42,26 @@ function Update(props: IUpdateProps){
         })
     }
 
-    //TODO: I AM NOT PASSING CORRECT CREDENTIALS? FIX
- function handleSubmit(e: SyntheticEvent){
-        fetch(`http://localhost:8080/recipes/${id}`, { //id from PARAMS
+ function handleSubmit(e: SyntheticEvent){ //TODO: I SHOULD REFRESH PAGE!
+        fetch(`http://localhost:8080/recipes/${id}`, { 
         method: 'PATCH',
         headers: { //TODO: ADD AUTH !
             'Content-type': 'application/json',
             'Access-Control-Allow-Origin': "*"
           },
-        body: JSON.stringify( {recipe}  ),
+        body: JSON.stringify( {...recipe}  ),
 })
   .then((response) => response.json())
-  .then((response)=> setRecipe(response)); //LETS HOPE YOU WORK!
-  
-    }
-// TODO: DEPRECATE ID IN 'YOU ARE EDITING' MESSAGE?
+  .then((response)=> setRecipe(response));
+}
+// @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR 
+//...RECIPE, IN THE BODY. 
+//TODO: STYLING TIME BABY!!
+
     return(
         <div>
-            <h2>You found the EDIT component!</h2>
             {editing ? 
             <div className='edit-true'> 
-            
-            <p>You are EDITING an existant RECIPE. with ID {id}</p> 
-
             <form onSubmit={handleSubmit}>
             <label>Recipe name</label>
             <input 
@@ -99,9 +89,9 @@ function Update(props: IUpdateProps){
 
             </form>
 
-            <button>Cancel your CHANGES!</button>
-            {/*TODO: UPDATE ME TO WORK!!!*/}
-            <button onClick={handleSubmit}>SAVE your CHANGES! XXX NOT WORKING XXX</button>
+            <button onClick={handleSubmit}>SAVE your CHANGES!</button>
+            <button onClick={editToggle}>CANCEL your CHANGES</button>
+
             </div> 
             : 
             <></>}
