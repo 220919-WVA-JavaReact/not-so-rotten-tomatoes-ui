@@ -1,16 +1,20 @@
-import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
-import { Form } from 'react-bootstrap';
+import { MDBInput, MDBTextArea, MDBBtn, MDBCardTitle } from 'mdb-react-ui-kit';
 import {SyntheticEvent, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Recipe } from '../../models/recipe';
+
 
 interface IUpdateProps{
-    id: number | any,
-    author: number,
-    recipe_name: String | any,
-    instructions: String | any,
-    category: String | any
-    editing: Boolean
+    id: number | any;
+    author: number;
+    recipe_name: String | any;
+    instructions: String | any;
+    category: String | any;
+    editing: Boolean;
+    recipe: Recipe | undefined;
+    setRecipe: (setRecipe: Recipe) => void;
+    handleSubmitClick: () => void;
     
 }
 
@@ -26,22 +30,17 @@ function Update(props: IUpdateProps){
     }
 
     const [editing, setEditing] = useState(props.editing);
-    const [recipe, setRecipe] = useState(initialRecipe); //I MIGHT HAVE TO OVERRIDE
-
-    // function editToggle(){
-    //     setEditing(!editing);
-    //     //TODO:: I SHOULD UNMOUNT / I SHOULD RELOAD PAGE.
-    //   }
-
+    const [recipe, setRecipe] = useState(initialRecipe);
 
     function handleChange(e: SyntheticEvent){
         setRecipe({
             ...recipe,
             [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement).value
         })
+        
     }
 
- function handleSubmit(e: SyntheticEvent){ //TODO: I SHOULD REFRESH PAGE!
+    function handleSubmit(){ //TODO: I SHOULD REFRESH PAGE!
         fetch(`http://localhost:8080/recipes/${id}`, { 
         method: 'PATCH',
         headers: { //TODO: ADD AUTH !
@@ -50,11 +49,15 @@ function Update(props: IUpdateProps){
           },
         body: JSON.stringify( {...recipe}  ),
 })
-  .then((response) => response.json())
-  .then((response)=> setRecipe(response));
 
-  setEditing(false);
-
+  
+    setEditing(!props.editing);
+    //.then((response) => response.json())
+//   .then((response)=> {
+//     const data = response.json();
+//    // props.setRecipe(data); //this is closing the EDIT component, but not updating parent.
+    
+// });
 }
 // @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR 
 //...RECIPE, IN THE BODY. 
@@ -94,16 +97,11 @@ function Update(props: IUpdateProps){
 
             </form>
 
-            <button onClick={handleSubmit}>SAVE your CHANGES!</button>
-            <button onClick={()=>setEditing(false)}>CANCEL your CHANGES</button>
-
+            <MDBBtn className="small-top-margin" onClick={handleSubmit}>SAVE your CHANGES!</MDBBtn>
+            <br></br>
             </div> 
             : 
             <></>}
-                
-                
-            
-            {/*NOTE: I ABOVE COME FROM PROPS, DO NOT CREATE HERE!*/}
         </div>
     )
 }
