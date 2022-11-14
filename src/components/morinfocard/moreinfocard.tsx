@@ -95,7 +95,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
         recipe_name={recipe.recipe_name}
         instructions={recipe.instructions}
         category={recipe.category}
-        
+        editing={editing}
         /> : <></>}
     </MDBCard>
   ) : (

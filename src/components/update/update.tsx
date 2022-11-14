@@ -1,22 +1,23 @@
+import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
+import { Form } from 'react-bootstrap';
 import {SyntheticEvent, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
-//NOTE: YOU NEED TO CHANGE THESE PROPS, CLAIRE!
-interface IUpdateProps{ //WHEN THIS ID WAS STRING | UNDEFINED , YOU GOT THAT 400
-                        //ALSO AUTHOR WAS NUMBER. TRY TO CHANGE THESE, BUT STILL
-                        //PULL IN THE PATH'S ID FROM PARAMS?
+
+interface IUpdateProps{
     id: number | any,
     author: number,
     recipe_name: String | any,
     instructions: String | any,
     category: String | any
+    editing: Boolean
     
 }
 
 function Update(props: IUpdateProps){
 
-    let {id} = useParams(); //ID NOW FROM PROPS 
-    const initialRecipe = { //ADDED BACK ID, AUTHOR
+    let {id} = useParams(); 
+    const initialRecipe = { 
         id: props.id,
         author: props.author,
         recipe_name: props.recipe_name,
@@ -24,16 +25,14 @@ function Update(props: IUpdateProps){
         category: props.category,
     }
 
-    //...recall unit 3 final project, use that for stuff
-    //finally, send PATCH request with the updated info
-    const [editing, setEditing] = useState(true); //I initialize to false, which means, on every re-render, I should be false.
-   
+    const [editing, setEditing] = useState(props.editing);
     const [recipe, setRecipe] = useState(initialRecipe); //I MIGHT HAVE TO OVERRIDE
 
-    function editToggle(){
-        setEditing(!editing);
-        //TODO:: I SHOULD UNMOUNT / I SHOULD RELOAD PAGE.
-      }
+    // function editToggle(){
+    //     setEditing(!editing);
+    //     //TODO:: I SHOULD UNMOUNT / I SHOULD RELOAD PAGE.
+    //   }
+
 
     function handleChange(e: SyntheticEvent){
         setRecipe({
@@ -53,29 +52,35 @@ function Update(props: IUpdateProps){
 })
   .then((response) => response.json())
   .then((response)=> setRecipe(response));
+
+  setEditing(false);
+
 }
 // @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR 
 //...RECIPE, IN THE BODY. 
 //TODO: STYLING TIME BABY!!
 
     return(
-        <div>
+        <div style={{ margin: 'auto', textAlign: 'center', width: '80%' }}>
             {editing ? 
             <div className='edit-true'> 
             <form onSubmit={handleSubmit}>
             <label>Recipe name</label>
-            <input 
+            <MDBInput 
             value={recipe.recipe_name}
             id="recipe-name"
             name="recipe_name"
+            className="small-top-margin"
             onChange={handleChange}
             />
 
             <label>Instructions</label>
-            <input 
+            <MDBTextArea 
             value={recipe.instructions}
             id="instructions"
             name="instructions"
+            className="small-top-margin"
+            rows={9}
             onChange={handleChange}
             />
 
@@ -90,7 +95,7 @@ function Update(props: IUpdateProps){
             </form>
 
             <button onClick={handleSubmit}>SAVE your CHANGES!</button>
-            <button onClick={editToggle}>CANCEL your CHANGES</button>
+            <button onClick={()=>setEditing(false)}>CANCEL your CHANGES</button>
 
             </div> 
             : 
