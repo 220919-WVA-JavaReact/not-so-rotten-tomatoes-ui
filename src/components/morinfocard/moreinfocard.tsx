@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
+import Update from '../update/update';
 
 interface IMoreInfoProps {
   currentUser: User | undefined;
@@ -26,7 +27,16 @@ interface IMoreInfoProps {
 function MoreInfoCard(props: IMoreInfoProps) {
   const [authUser, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
+  const [editing, setEditing] = useState(false); //needed for conditional rendering of update component
   let { id } = useParams();
+
+  function handleEditClick(){
+    setEditing(!editing);
+  }
+
+   function handleEditSubmit(){
+    getRecipe();
+  }
 
   async function getRecipe() {
     const res = await fetch(`http://localhost:8080/recipes/${id}`, {
@@ -67,9 +77,21 @@ function MoreInfoCard(props: IMoreInfoProps) {
             </a>
           </MDBRipple>
           <MDBCardTitle>
-            {recipe.recipe_name} - {id}
+            {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
           <MDBCardText>{recipe.instructions}</MDBCardText>
+          <MDBBtn style={{width: '12.5%'}} onClick={handleEditClick}> {editing ? 'CANCEL' : 'EDIT'}</MDBBtn>
+          {editing ? <Update 
+        id={id}
+        author={recipe.author}
+        recipe_name={recipe.recipe_name}
+        instructions={recipe.instructions}
+        category={recipe.category}
+        editing={editing}
+        recipe={recipe}
+        setRecipe={setRecipe}
+        handleSubmitClick={handleEditSubmit}
+        /> : <></>}
         </MDBCol>
         <MDBCol>
           <h2>Reviews</h2>
@@ -81,6 +103,8 @@ function MoreInfoCard(props: IMoreInfoProps) {
           />
         </MDBCol>
       </MDBRow>
+      
+      
     </MDBCard>
   ) : (
     <div>Loading Recipe...</div>
