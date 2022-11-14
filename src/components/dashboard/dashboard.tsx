@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
 import RecipeCard from '../recipecard/recipecard';
 import Reviews from '../reviews/reviews';
+import './dashboard.style.css'
 
 interface IDashProps {
   currentUser: User | undefined;
@@ -39,7 +40,7 @@ function Dashboard(props: IDashProps) {
         <MDBBtn>Create New Recipe</MDBBtn>
       </Link>
 
-      <div className="grid">
+      <div className="dash-grid">
         {recipes?.map((recipe: any) => {
           return (
             <div className="g-col-4" key={recipe.recipe_id}>
