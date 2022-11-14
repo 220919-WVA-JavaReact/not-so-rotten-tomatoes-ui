@@ -42,10 +42,11 @@ function AddReview(props: IAddReviewProps) {
       }
     );
     const data = await result.json();
-    // console.log(data);
+    // console.log(review_text);
+    setReviewText('');
+    // console.log(review_text);
     setReviews(Object.assign(data));
     props.getReviews(reviews);
-    handleClick();
   }
 
   return (
@@ -56,6 +57,7 @@ function AddReview(props: IAddReviewProps) {
         placeholder="Type comment..."
         label="+ Add a note"
         onChange={updateReviewText}
+        value={review_text}
       />
       <MDBBtn
         style={{ marginBottom: '25px', alignContent: 'right' }}

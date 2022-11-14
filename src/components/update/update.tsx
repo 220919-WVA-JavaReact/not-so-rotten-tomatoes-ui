@@ -1,11 +1,6 @@
-<<<<<<< HEAD
+import { rmSync } from 'fs';
 import { MDBBtn, MDBCardTitle, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
-=======
-import { rmSync } from 'fs';
-import { MDBInput, MDBTextArea, MDBBtn, MDBCardTitle } from 'mdb-react-ui-kit';
-import {SyntheticEvent, useState} from 'react';
->>>>>>> 6ce29f0906103a220be4c036f6d1459c0372bd9f
 import { useParams } from 'react-router-dom';
 
 import { Recipe } from '../../models/recipe';
@@ -53,45 +48,26 @@ function Update(props: IUpdateProps) {
         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({ ...recipe }),
+    }).then((res) => {
+      res.json();
+      //   window.location.reload();
     });
 
-<<<<<<< HEAD
-=======
-    function handleSubmit(){ //TODO: I SHOULD REFRESH PAGE!
-        fetch(`http://localhost:8080/recipes/${id}`, { 
-        method: 'PATCH',
-        headers: { //TODO: ADD AUTH !
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': "*"
-          },
-        body: JSON.stringify( {...recipe}  ),
-}).then((res) => {
-    res.json();
-    window.location.reload();
-})
-
->>>>>>> 6ce29f0906103a220be4c036f6d1459c0372bd9f
     setEditing(!props.editing);
-
-}
-    //.then((response) => response.json())
-<<<<<<< HEAD
-    //   .then((response)=> {
-    //     const data = response.json();
-    //    // props.setRecipe(data); //this is closing the EDIT component, but not updating parent.
-=======
-//   .then((response)=> {
-//     const data = response.json();
-//    // props.setRecipe(data); //this is closing the EDIT component, but not updating parent.
-    
-// });
-// @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR 
-//...RECIPE, IN THE BODY. 
-//TODO: STYLING TIME BABY!!
->>>>>>> 6ce29f0906103a220be4c036f6d1459c0372bd9f
-
-    // });
   }
+
+  //.then((response) => response.json())
+  //   .then((response)=> {
+  //     const data = response.json();
+  //    // props.setRecipe(data); //this is closing the EDIT component, but not updating parent.
+
+  // });
+  // @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR
+  //...RECIPE, IN THE BODY.
+  //TODO: STYLING TIME BABY!!
+
+  // });
+  //   }
   // @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR
   //...RECIPE, IN THE BODY.
   //TODO: STYLING TIME BABY!!
