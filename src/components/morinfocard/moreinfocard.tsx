@@ -30,11 +30,11 @@ function MoreInfoCard(props: IMoreInfoProps) {
   const [editing, setEditing] = useState(false); //needed for conditional rendering of update component
   let { id } = useParams();
 
-  function handleEditClick(){
+  function handleEditClick() {
     setEditing(!editing);
   }
 
-   function handleEditSubmit(){
+  function handleEditSubmit() {
     getRecipe();
   }
 
@@ -80,18 +80,25 @@ function MoreInfoCard(props: IMoreInfoProps) {
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
           <MDBCardText>{recipe.instructions}</MDBCardText>
-          <MDBBtn style={{width: '12.5%'}} onClick={handleEditClick}> {editing ? 'CANCEL' : 'EDIT'}</MDBBtn>
-          {editing ? <Update 
-        id={id}
-        author={recipe.author}
-        recipe_name={recipe.recipe_name}
-        instructions={recipe.instructions}
-        category={recipe.category}
-        editing={editing}
-        recipe={recipe}
-        setRecipe={setRecipe}
-        handleSubmitClick={handleEditSubmit}
-        /> : <></>}
+          <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
+            {' '}
+            {editing ? 'CANCEL' : 'EDIT'}
+          </MDBBtn>
+          {editing ? (
+            <Update
+              id={id}
+              author={recipe.author}
+              recipe_name={recipe.recipe_name}
+              instructions={recipe.instructions}
+              category={recipe.category}
+              editing={editing}
+              recipe={recipe}
+              setRecipe={setRecipe}
+              handleSubmitClick={handleEditSubmit}
+            />
+          ) : (
+            <></>
+          )}
         </MDBCol>
         <MDBCol>
           <h2>Reviews</h2>
@@ -103,11 +110,10 @@ function MoreInfoCard(props: IMoreInfoProps) {
           />
         </MDBCol>
       </MDBRow>
-      
-      
     </MDBCard>
   ) : (
     <div>Loading Recipe...</div>
-)}
+  );
+}
 
 export default MoreInfoCard;
