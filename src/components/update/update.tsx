@@ -1,3 +1,4 @@
+import { rmSync } from 'fs';
 import { MDBInput, MDBTextArea, MDBBtn, MDBCardTitle } from 'mdb-react-ui-kit';
 import {SyntheticEvent, useState} from 'react';
 import { useParams } from 'react-router-dom';
@@ -48,17 +49,20 @@ function Update(props: IUpdateProps){
             'Access-Control-Allow-Origin': "*"
           },
         body: JSON.stringify( {...recipe}  ),
+}).then((res) => {
+    res.json();
+    window.location.reload();
 })
 
-  
     setEditing(!props.editing);
+
+}
     //.then((response) => response.json())
 //   .then((response)=> {
 //     const data = response.json();
 //    // props.setRecipe(data); //this is closing the EDIT component, but not updating parent.
     
 // });
-}
 // @DOCS: YOU NEED THE _ENTIRE_ RECIPE OBJECT TO SEND TO BACKEND, HENCE THE SPREAD OPERATOR 
 //...RECIPE, IN THE BODY. 
 //TODO: STYLING TIME BABY!!
