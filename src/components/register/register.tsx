@@ -13,7 +13,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import { User } from '../../models/user';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 interface IRegisterProps {
   currentUser: User | undefined,
@@ -97,8 +97,9 @@ function Register(props: IRegisterProps){
         <MDBInput wrapperClass='mb-4' label='Your Email' id='form2' type='email' onChange={regEmail}/>
         <MDBInput wrapperClass='mb-4' label='Password' id='form3' type='password' onChange={regPassword}/>
         {/* <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' /> */}
-
-        <MDBBtn className='mb-4' size='lg' onClick={register} >Register</MDBBtn>
+        <Link to="/login">
+        <MDBBtn className='mb-4' size='lg' onClick={register} href="login">Register</MDBBtn>
+        </Link>
     </MDBContainer>
     );
 }
