@@ -1,12 +1,14 @@
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
+import Reviews from '../reviews/reviews';
 
 interface IAddReviewProps {
   currentUser: User | undefined;
   recipe_id: number | string | undefined;
   recipe: Recipe;
+  getReviews: Function;
 }
 
 function AddReview(props: IAddReviewProps) {
@@ -15,6 +17,10 @@ function AddReview(props: IAddReviewProps) {
 
   let updateReviewText = (e: SyntheticEvent) => {
     setReviewText((e.target as HTMLInputElement).value);
+  };
+
+  let handleClick = () => {
+    setReviewText('');
   };
 
   async function postReview() {
@@ -36,8 +42,11 @@ function AddReview(props: IAddReviewProps) {
       }
     );
     const data = await result.json();
-    // console.log(data);
+    // console.log(review_text);
+    setReviewText('');
+    // console.log(review_text);
     setReviews(Object.assign(data));
+    props.getReviews(reviews);
   }
 
   return (
@@ -48,6 +57,7 @@ function AddReview(props: IAddReviewProps) {
         placeholder="Type comment..."
         label="+ Add a note"
         onChange={updateReviewText}
+        value={review_text}
       />
       <MDBBtn
         style={{ marginBottom: '25px', alignContent: 'right' }}
