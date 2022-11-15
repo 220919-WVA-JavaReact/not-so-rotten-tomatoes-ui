@@ -30,9 +30,10 @@ function NewRecipe(props: IRegisterProps) {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
+
       body: JSON.stringify({
-        author,
-        recipe_name: recipeName,
+        userid: author,
+        title: recipeName,
         instructions,
         category,
       }),
@@ -79,7 +80,7 @@ function NewRecipe(props: IRegisterProps) {
           className="small-top-margin small-bottom-margin"
         >
           <option>Category</option>
-          <option value="App">App</option>
+          <option value="Appetizer">Appetizer</option>
           <option value="Entree">Entree</option>
           <option value="Dessert">Dessert</option>
         </Form.Select>
