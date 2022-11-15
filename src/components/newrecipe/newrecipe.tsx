@@ -1,7 +1,7 @@
 import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { json } from 'stream/consumers';
+import { useParams } from 'react-router-dom';
 import { User } from '../../models/user';
 
 import './newrecipe.css';
@@ -14,30 +14,50 @@ function NewRecipe(props: IRegisterProps) {
   const [recipeName, setRecipeName] = useState('');
   const [instructions, setInstructions] = useState('');
   const [category, setCategory] = useState('');
+  const [filename, setFilename] = useState('');
   const author = props.currentUser?.id;
+  let { recipe } = useParams();
 
   const handleClick = () => {
-    console.log({
-      author,
-      recipeName,
-      instructions,
-      category,
-    });
+    // console.log({
+    //   author,
+    //   recipeName,
+    //   instructions,
+    //   category,
+    //   filename,
+    // });
+    recipe = `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`;
+    let formData = new FormData();
+    // const myFile = document.querySelector('input[type=file]').files[0];
+    // formData.append(
+    //   'recipe',
+    //   `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`
+    // );
+    formData.append('file', filename);
+    formData.append('recipe', recipe);
+    console.log(formData);
+    // const formDataURL = new URLSearchParams(formData);
 
     fetch(`http://localhost:8080/recipes`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data; boundary=$boundary',
         'Access-Control-Allow-Origin': '*',
       },
 
-      body: JSON.stringify({
-        userid: author,
-        title: recipeName,
-        instructions,
-        category,
-      }),
-    });
+      body: formData,
+      // JSON.stringify({
+      //   recipe: recipe,
+      //   file: filename,
+      //   // userid: author,
+      //   // title: recipeName,
+      //   // instructions,
+      //   // category,
+      // }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   };
 
   const handleRecipeNameChange = (e: SyntheticEvent): void => {
@@ -51,10 +71,13 @@ function NewRecipe(props: IRegisterProps) {
   const handleCategoryChange = (e: SyntheticEvent): void => {
     setCategory((e.target as HTMLInputElement).value);
   };
+  const handleFileChange = (event: any): void => {
+    setFilename(event.target.files[0]);
+  };
 
   return (
     <>
-      <div style={{ margin: 'auto', textAlign: 'center', width: '80%' }}>
+      <form style={{ margin: 'auto', textAlign: 'center', width: '80%' }}>
         <MDBInput
           label="Recipe Name"
           type="text"
@@ -88,7 +111,12 @@ function NewRecipe(props: IRegisterProps) {
           {' '}
           Upload a Picture{' '}
         </span>{' '}
-        <input type="file" className="form-control" id="customFile" />
+        <input
+          type="file"
+          className="form-control"
+          id="customFile"
+          onChange={handleFileChange}
+        />
         <button
           type="button"
           className="btn btn-primary small-top-margin"
@@ -96,7 +124,7 @@ function NewRecipe(props: IRegisterProps) {
         >
           Create
         </button>
-      </div>
+      </form>
     </>
   );
 }

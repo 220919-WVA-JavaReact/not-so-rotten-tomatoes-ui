@@ -15,13 +15,14 @@ interface IRecipeCardProps {
   name: String;
   category: String;
   instructions: String;
+  filename: String;
 }
 
 function RecipeCard(props: IRecipeCardProps) {
   return (
     <MDBCard>
       <MDBCardImage
-        src="https://mdbootstrap.com/img/new/standard/nature/184.webp"
+        src={`https://nsrt-public-images.s3.amazonaws.com/${props.filename}`}
         position="top"
         alt="..."
       />
