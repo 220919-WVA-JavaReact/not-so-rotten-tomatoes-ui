@@ -76,7 +76,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
 
   useEffect(() => {
     getRecipe();
-  });
+  }, []);
 
   return recipe ? (
     <MDBCard>
