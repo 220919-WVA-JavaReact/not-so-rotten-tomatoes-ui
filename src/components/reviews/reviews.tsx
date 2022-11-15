@@ -64,6 +64,7 @@ function Reviews(props: IReviewProps) {
                 currentUser={props.currentUser}
                 recipe_id={props.recipe.id}
                 recipe={props.recipe}
+                getReviews={getReviews}
               />
               {reviews.map((review: any) => {
                 return (

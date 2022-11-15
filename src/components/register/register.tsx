@@ -11,7 +11,7 @@ import {
   MDBRow,
 } from 'mdb-react-ui-kit';
 import React, { SyntheticEvent, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
 
 interface IRegisterProps {
@@ -47,7 +47,7 @@ function Register(props: IRegisterProps) {
       setErrorMessage('Please enter valid credentials');
     } else {
       setErrorMessage('');
-
+      // ${process.env.REACT_APP_API_URL}
       let response = await fetch(`http://localhost:8080/users`, {
         method: 'POST',
         headers: {
@@ -104,9 +104,11 @@ function Register(props: IRegisterProps) {
       />
       {/* <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' /> */}
 
+      <Link to="/login">
       <MDBBtn className="mb-4" size="lg" onClick={register}>
         Register
       </MDBBtn>
+      </Link>
     </MDBContainer>
   );
 }
