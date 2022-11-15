@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
 import RecipeCard from '../recipecard/recipecard';
 import Reviews from '../reviews/reviews';
-import './dashboard.style.css'
+import './dashboard.style.css';
 
 interface IDashProps {
   currentUser: User | undefined;
@@ -30,7 +30,7 @@ function Dashboard(props: IDashProps) {
 
   useEffect(() => {
     getUserRecipes();
-  }, [])
+  });
 
   return props.currentUser ? (
     <>
@@ -52,6 +52,7 @@ function Dashboard(props: IDashProps) {
                 key={recipe.author.id}
                 category={recipe.category}
                 instructions={recipe.instructions}
+                filename={recipe.filename}
               />
             </div>
           );

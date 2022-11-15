@@ -1,5 +1,4 @@
-import { rmSync } from 'fs';
-import { MDBBtn, MDBCardTitle, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 

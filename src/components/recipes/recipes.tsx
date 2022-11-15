@@ -30,6 +30,7 @@ function Recipes(props: IRecipeProps) {
                 key={recipe.author.id}
                 category={recipe.category}
                 instructions={recipe.instructions}
+                filename={recipe.filename}
               />
             </div>
           );

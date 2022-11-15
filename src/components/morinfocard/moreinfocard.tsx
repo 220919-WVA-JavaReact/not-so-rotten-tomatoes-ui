@@ -1,7 +1,6 @@
 import {
   MDBBtn,
   MDBCard,
-  MDBCardBody,
   MDBCardImage,
   MDBCardText,
   MDBCardTitle,
@@ -10,7 +9,6 @@ import {
   MDBRow,
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
@@ -52,7 +50,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
 
   useEffect(() => {
     getRecipe();
-  }, []);
+  });
 
   return recipe ? (
     <MDBCard>
@@ -64,7 +62,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
             className="bg-image hover-overlay"
           >
             <MDBCardImage
-              src="https://mdbootstrap.com/img/new/standard/nature/111.webp"
+              src={`https://nsrt-public-images.s3.amazonaws.com/${recipe.filename}`}
               fluid
               style={{ maxHeight: '300px' }}
               alt="..."
