@@ -1,13 +1,4 @@
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCol,
-  MDBContainer,
-  MDBIcon,
-  MDBInput,
-  MDBRow,
-} from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 
 interface IReviewCardProps {
   author: String;

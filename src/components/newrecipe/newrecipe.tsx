@@ -1,9 +1,7 @@
 import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { json } from 'stream/consumers';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { User } from '../../models/user';
 
 import './newrecipe.css';
@@ -22,46 +20,27 @@ function NewRecipe(props: IRegisterProps) {
   let { recipe } = useParams();
 
   const handleClick = () => {
-    // console.log({
-    //   author,
-    //   recipeName,
-    //   instructions,
-    //   category,
-    //   filename,
-    // });
     recipe = `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`;
     let formData = new FormData();
-    // const myFile = document.querySelector('input[type=file]').files[0];
-    // formData.append(
-    //   'recipe',
-    //   `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`
-    // );
+
     formData.append('file', filename);
     formData.append('recipe', recipe);
     console.log(formData);
-    // const formDataURL = new URLSearchParams(formData);
 
     fetch(`http://localhost:8080/recipes`, {
       method: 'POST',
       headers: {
-        // 'Content-Type': 'multipart/form-data; boundary=$boundary',
+        // 'Content-Type': 'multipart/form-data; boundary=$boundary',  --not necessary when sending over S3 file.
         'Access-Control-Allow-Origin': '*',
       },
 
       body: formData,
-      // JSON.stringify({
-      //   recipe: recipe,
-      //   file: filename,
-      //   // userid: author,
-      //   // title: recipeName,
-      //   // instructions,
-      //   // category,
-      // }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-      navigate('/dashboard');
+    });
+    // .then((res) => res.json())
+    // .then((data) => console.log(data))
+    // .catch((err) => console.error(err));
+
+    navigate('/dashboard');
   };
 
   const handleRecipeNameChange = (e: SyntheticEvent): void => {

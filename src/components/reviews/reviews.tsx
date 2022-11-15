@@ -1,12 +1,8 @@
-import { ResultType } from '@remix-run/router/dist/utils';
 import {
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBInput,
   MDBRow,
 } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
@@ -24,7 +20,7 @@ interface IReviewProps {
 
 function Reviews(props: IReviewProps) {
   const [reviews, setReviews] = useState([]);
-  const [authUser, setAuthUser] = useState<User>();
+  // const [authUser, setAuthUser] = useState<User>();
 
   async function getReviews() {
     const result = await fetch(
@@ -44,6 +40,7 @@ function Reviews(props: IReviewProps) {
 
   useEffect(() => {
     getReviews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,15 +1,4 @@
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCheckbox,
-  MDBCol,
-  MDBContainer,
-  MDBIcon,
-  MDBInput,
-  MDBRow,
-} from 'mdb-react-ui-kit';
+import { MDBBtn, MDBContainer, MDBInput } from 'mdb-react-ui-kit';
 import React, { SyntheticEvent, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
@@ -55,9 +44,8 @@ function Register(props: IRegisterProps) {
         },
         body: JSON.stringify({ username, email, password }),
       }).then((res) => {
-         navigateHome();
-      })
-      ;
+        navigateHome();
+      });
 
       //if the user is able to login then get the headers and save the token to the session storage aka logging in once registered
       // if (response.status === 201) {
@@ -107,21 +95,13 @@ function Register(props: IRegisterProps) {
       />
       {/* <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' /> */}
 
-      {
-        errorMessage ?
-        <p>{errorMessage}</p> 
-        :
-        <></>
-      }
-
+      {errorMessage ? <p>{errorMessage}</p> : <></>}
 
       <Link to="/login">
-      <MDBBtn className="mb-4" size="lg" onClick={register}>
-        Register
-      </MDBBtn>
+        <MDBBtn className="mb-4" size="lg" onClick={register}>
+          Register
+        </MDBBtn>
       </Link>
-      
-
     </MDBContainer>
   );
 }

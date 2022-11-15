@@ -1,8 +1,7 @@
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit';
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
-import Reviews from '../reviews/reviews';
 
 interface IAddReviewProps {
   currentUser: User | undefined;
@@ -17,10 +16,6 @@ function AddReview(props: IAddReviewProps) {
 
   let updateReviewText = (e: SyntheticEvent) => {
     setReviewText((e.target as HTMLInputElement).value);
-  };
-
-  let handleClick = () => {
-    setReviewText('');
   };
 
   async function postReview() {
