@@ -54,24 +54,27 @@ function Register(props: IRegisterProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, email, password }),
-      });
+      }).then((res) => {
+         navigateHome();
+      })
+      ;
 
       //if the user is able to login then get the headers and save the token to the session storage aka logging in once registered
-      if (response.status === 200) {
-        let token = response.headers.get('Authorization');
-        //console.log('Authorization: ' + response.headers.get('Authorization'));
-        if (token) {
-          sessionStorage.setItem('token', token);
-        }
-        props.setCurrentUser(await response.json());
-      } else {
-        setErrorMessage('Could not validate the provided credentials');
-      }
+      // if (response.status === 201) {
+      //   let token = response.headers.get('Authorization');
+      //   //console.log('Authorization: ' + response.headers.get('Authorization'));
+      //   if (token) {
+      //     sessionStorage.setItem('token', token);
+      //   }
+      //   props.setCurrentUser(await response.json());
+      // } else {
+      //   setErrorMessage('Could not validate the provided credentials');
+      // }
     }
   };
 
   const navigateHome = () => {
-    <Navigate to="/dashboard" />;
+    <Navigate to="/login" />;
   };
 
   return props.currentUser ? ( // condition to be evaluated, ie: if(user)
@@ -104,11 +107,21 @@ function Register(props: IRegisterProps) {
       />
       {/* <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' /> */}
 
+      {
+        errorMessage ?
+        <p>{errorMessage}</p> 
+        :
+        <></>
+      }
+
+
       <Link to="/login">
       <MDBBtn className="mb-4" size="lg" onClick={register}>
         Register
       </MDBBtn>
       </Link>
+      
+
     </MDBContainer>
   );
 }
