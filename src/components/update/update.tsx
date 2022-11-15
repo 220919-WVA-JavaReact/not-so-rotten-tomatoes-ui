@@ -1,6 +1,6 @@
 import { rmSync } from 'fs';
 import { MDBInput, MDBTextArea, MDBBtn, MDBCardTitle } from 'mdb-react-ui-kit';
-import {SyntheticEvent, useState} from 'react';
+import {SyntheticEvent, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Recipe } from '../../models/recipe';
@@ -51,7 +51,7 @@ function Update(props: IUpdateProps){
         body: JSON.stringify( {...recipe}  ),
 }).then((res) => {
     res.json();
-    window.location.reload();
+    document.location.reload(); //CHAGNE TO SIMPLE LOCATION?
 })
 
     setEditing(!props.editing);
