@@ -48,7 +48,7 @@ function Login(props: ILoginProps) {
       if (response.status === 200) {
         logout = true;
         let token = response.headers.get('Authorization');
-        console.log('Authorization: ' + response.headers.get('Authorization'));
+        // console.log('Authorization: ' + response.headers.get('Authorization'));
         if (token) {
           sessionStorage.setItem('token', token);
         }
