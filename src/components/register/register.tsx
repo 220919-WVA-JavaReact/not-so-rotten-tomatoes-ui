@@ -39,7 +39,15 @@ function Register(props: IRegisterProps) {
     setPassword((e.target as HTMLInputElement).value);
   };
 
-  let register = async (e: SyntheticEvent) => {
+  const handleKeyPress = function (event: any) {
+    if (event.key === 'Enter'){
+     // let e = 1;
+      register();
+    }
+  }
+
+  //@DOCS: 'EVENT' below was not used, so has been removed.
+  let register = async () => {
     //console.log("step 1")
     if (!email || !username || !password) {
       //if a field is not filled out then throw an error message
@@ -101,11 +109,15 @@ function Register(props: IRegisterProps) {
         id="form3"
         type="password"
         onChange={regPassword}
+        onKeyDown={handleKeyPress}
       />
+      {/*@DOCS: above onKeyDown means when use hits 'enter' while in password field,
+      will automagically call register for us.
+      */}
       {/* <MDBInput wrapperClass='mb-4' label='Repeat your password' id='form4' type='password' /> */}
 
       <Link to="/login">
-      <MDBBtn className="mb-4" size="lg" onClick={register}>
+      <MDBBtn className="mb-4" size="lg" onClick={register} onKeyDown={handleKeyPress}>
         Register
       </MDBBtn>
       </Link>
