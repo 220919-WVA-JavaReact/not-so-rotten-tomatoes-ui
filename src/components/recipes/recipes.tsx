@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
 import RecipeCard from '../recipecard/recipecard';
 import SearchBar from '../searchbar/searchbar';
@@ -11,7 +10,7 @@ interface IRecipeProps {
 
 function Recipes(props: IRecipeProps) {
   const [recipes, setRecipes] = useState([]);
-  const [authUser, setAuthUser] = useState<User>();
+  const [authUser] = useState<User>();
 
   return (
     <>

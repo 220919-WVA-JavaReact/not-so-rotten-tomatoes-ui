@@ -24,7 +24,7 @@ interface IMoreInfoProps {
 }
 
 function MoreInfoCard(props: IMoreInfoProps) {
-  const [authUser, setAuthUser] = useState<User>();
+  const [, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
   const [editing, setEditing] = useState(false);
 
@@ -54,6 +54,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
       },
       body: JSON.stringify({ ...recipe }),
     }).then((res) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newData = res.json();
       setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
       // DO NOT CHANGE ME OR BAD UGLY THINGS
@@ -76,6 +77,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
 
   useEffect(() => {
     getRecipe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return recipe ? (

@@ -1,10 +1,4 @@
-import {
-  MDBBtn,
-  MDBCheckbox,
-  MDBContainer,
-  MDBIcon,
-  MDBInput,
-} from 'mdb-react-ui-kit';
+import { MDBBtn, MDBCheckbox, MDBContainer, MDBInput } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
