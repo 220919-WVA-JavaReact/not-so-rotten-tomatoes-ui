@@ -1,6 +1,7 @@
 import { MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { json } from 'stream/consumers';
 import { User } from '../../models/user';
 
@@ -11,12 +12,13 @@ interface IRegisterProps {
 }
 
 function NewRecipe(props: IRegisterProps) {
+  const navigate = useNavigate();
   const [recipeName, setRecipeName] = useState('');
   const [instructions, setInstructions] = useState('');
   const [category, setCategory] = useState('');
   const author = props.currentUser?.id;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log({
       author,
       recipeName,
@@ -24,7 +26,7 @@ function NewRecipe(props: IRegisterProps) {
       category,
     });
 
-    fetch(`http://localhost:8080/recipes`, {
+    await fetch(`http://localhost:8080/recipes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,6 +40,8 @@ function NewRecipe(props: IRegisterProps) {
         category,
       }),
     });
+
+    navigate('/dashboard')
   };
 
   const handleRecipeNameChange = (e: SyntheticEvent): void => {
