@@ -30,10 +30,6 @@ function MoreInfoCard(props: IMoreInfoProps) {
   const [recipe, setRecipe] = useState<any>({});
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState('');
-  const [category, setCategory] = useState(recipe.category); 
-  //I KNOW I KNOW saving derived state
-  //is considered bad practice. However, consider::
-  // I hate making multiple change handlers.
 
   let { id } = useParams();
 
@@ -51,12 +47,6 @@ function MoreInfoCard(props: IMoreInfoProps) {
         .value,
     });
   }
-
-  const handleCategoryChange = (e: SyntheticEvent): void => {
-   let cat = setCategory((e.target as HTMLInputElement).value);
-   cat = recipe.category; //TESTING SETTING THIS TO RECIPE.CATEGORY WORKS.
-    
-  };
 
   
   function handleSubmit() {
@@ -105,7 +95,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
     getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+//{recipe.author.username}
   return recipe ? (
     <MDBCard>
       <MDBRow>
@@ -131,9 +121,6 @@ function MoreInfoCard(props: IMoreInfoProps) {
           <MDBCardTitle>
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
-
-          <MDBCardHeader>Written by: {recipe.author.username}</MDBCardHeader>
-
           <MDBCardText>{recipe.instructions}</MDBCardText>
           <MDBCardText style={{ color: 'red' }}>{error}</MDBCardText>
           <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
