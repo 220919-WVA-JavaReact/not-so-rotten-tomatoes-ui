@@ -5,3 +5,7 @@
 .small-bottom-margin {
     margin-bottom: 1rem;
 }
+
+.form-error {
+    color: red;
+}
