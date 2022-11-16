@@ -131,8 +131,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
           </MDBCardTitle>
           <MDBCardText>{recipe.instructions}</MDBCardText>
           <MDBCardText style={{ color: 'red' }}>{error}</MDBCardText>
-          <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
-            {' '}
+          <MDBBtn style={{ width: '30%', margin:'auto'}} onClick={handleEditClick}>
             {editing ? 'CANCEL' : 'EDIT'}
           </MDBBtn>
           <div style={{ margin: 'auto', textAlign: 'center', width: '80%' }}>
