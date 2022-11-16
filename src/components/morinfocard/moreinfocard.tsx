@@ -1,6 +1,7 @@
 import {
   MDBBtn,
   MDBCard,
+  MDBCardHeader,
   MDBCardImage,
   MDBCardText,
   MDBCardTitle,
@@ -10,6 +11,7 @@ import {
   MDBRow,
   MDBTextArea,
 } from 'mdb-react-ui-kit';
+import { Form, FormSelect } from 'react-bootstrap';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
@@ -91,7 +93,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
     getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+//{recipe.author.username}
   return recipe ? (
     <MDBCard>
       <MDBRow>
@@ -156,19 +158,20 @@ function MoreInfoCard(props: IMoreInfoProps) {
                     onChange={handleChange}
                   />
 
-                  <label style={{ paddingRight: '20px', paddingTop: '20px' }}>
-                    Category
-                  </label>
-                  <select
-                    value={recipe.category}
-                    id="category"
-                    name="category"
-                    onChange={handleChange}
-                  >
-                    <option value="Appetizer">Appetizer</option>
-                    <option value="Entree">Entree</option>
-                    <option value="Dessert">Dessert</option>
-                  </select>
+                  <Form.Select
+                  value={recipe.category}
+                  onChange={handleChange}
+                  aria-label="Default select example"
+                  id="category"
+                  name="category"
+                  className="small-top-margin small-bottom-margin"
+        >
+          <option>Category</option>
+          <option value="Appetizer">Appetizer</option>
+          <option value="Entree">Entree</option>
+          <option value="Dessert">Dessert</option>
+        </Form.Select>
+
                 </form>
 
                 <MDBBtn className="small-top-margin" onClick={handleSubmit}>
