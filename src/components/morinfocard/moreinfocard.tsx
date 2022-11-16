@@ -28,6 +28,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
   const [, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState('');
 
   let { id } = useParams();
 
@@ -47,24 +48,34 @@ function MoreInfoCard(props: IMoreInfoProps) {
   }
 
   function handleSubmit() {
-    fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ ...recipe }),
-    }).then((res) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const newData = res.json();
-      setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
-      // DO NOT CHANGE ME OR BAD UGLY THINGS
-      //  WILL HAPPEN!
-    });
-    setEditing(!editing);
+    if (props.currentUser?.id !== recipe.author.user_id) {
+      setError("Unable to edit someone ELSE's recipe, please try again.");
+      //@DOCS: front end validation AND back end validation both
+      //prevent a user from editing someone ELSE's recipe.
+    } else {
+      fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ ...recipe }),
+      }).then((res) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const newData = res.json();
+        if (res.status === 400) {
+          setError('Unable to update the RECIPE, please try again');
+        } else {
+          setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
+          // DO NOT CHANGE ME OR BAD UGLY THINGS
+          //  WILL HAPPEN!
+        }
+      });
+      setEditing(!editing);
+    }
   }
-
   async function getRecipe() {
+    setError('');
     const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
       method: 'GET',
       headers: {
@@ -116,10 +127,9 @@ function MoreInfoCard(props: IMoreInfoProps) {
           >
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
-          <MDBCardText style={{ display: 'grid', justifyContent: 'center' }}>
-            {recipe.instructions}
-          </MDBCardText>
-          <MDBBtn style={{ width: '20%' }} onClick={handleEditClick}>
+          <MDBCardText>{recipe.instructions}</MDBCardText>
+          <MDBCardText style={{ color: 'red' }}>{error}</MDBCardText>
+          <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
             {' '}
             {editing ? 'CANCEL' : 'EDIT'}
           </MDBBtn>
