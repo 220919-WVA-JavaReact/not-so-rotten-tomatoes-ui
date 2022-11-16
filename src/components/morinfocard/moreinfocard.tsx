@@ -1,6 +1,7 @@
 import {
   MDBBtn,
   MDBCard,
+  MDBCardHeader,
   MDBCardImage,
   MDBCardText,
   MDBCardTitle,
@@ -10,6 +11,7 @@ import {
   MDBRow,
   MDBTextArea,
 } from 'mdb-react-ui-kit';
+import { Form, FormSelect } from 'react-bootstrap';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
@@ -28,6 +30,10 @@ function MoreInfoCard(props: IMoreInfoProps) {
   const [recipe, setRecipe] = useState<any>({});
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState('');
+  const [category, setCategory] = useState(recipe.category); 
+  //I KNOW I KNOW saving derived state
+  //is considered bad practice. However, consider::
+  // I hate making multiple change handlers.
 
   let { id } = useParams();
 
@@ -45,6 +51,12 @@ function MoreInfoCard(props: IMoreInfoProps) {
         .value,
     });
   }
+
+  const handleCategoryChange = (e: SyntheticEvent): void => {
+   let cat = setCategory((e.target as HTMLInputElement).value);
+   cat = recipe.category; //TESTING SETTING THIS TO RECIPE.CATEGORY WORKS.
+    
+  };
 
   
   function handleSubmit() {
@@ -119,6 +131,9 @@ function MoreInfoCard(props: IMoreInfoProps) {
           <MDBCardTitle>
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
+
+          <MDBCardHeader>Written by: {recipe.author.username}</MDBCardHeader>
+
           <MDBCardText>{recipe.instructions}</MDBCardText>
           <MDBCardText style={{ color: 'red' }}>{error}</MDBCardText>
           <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
@@ -148,13 +163,19 @@ function MoreInfoCard(props: IMoreInfoProps) {
                     onChange={handleChange}
                   />
 
-                  <label>Category</label>
-                  <input
-                    value={recipe.category}
-                    id="category"
-                    name="category"
-                    onChange={handleChange}
-                  />
+                  <Form.Select
+                  value={recipe.category}
+                  onChange={handleChange}
+                  aria-label="Default select example"
+                  id="category"
+                  name="category"
+                  className="small-top-margin small-bottom-margin"
+        >
+          <option>Category</option>
+          <option value="Appetizer">Appetizer</option>
+          <option value="Entree">Entree</option>
+          <option value="Dessert">Dessert</option>
+        </Form.Select>
                 </form>
 
                 <MDBBtn className="small-top-margin" onClick={handleSubmit}>
