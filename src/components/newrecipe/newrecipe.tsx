@@ -14,12 +14,30 @@ function NewRecipe(props: IRegisterProps) {
   const navigate = useNavigate();
   const [recipeName, setRecipeName] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Appetizer');
   const [filename, setFilename] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const author = props.currentUser?.id;
   let { recipe } = useParams();
 
   const handleClick = () => {
+    if (recipeName.trim() === ''){
+      setErrorMsg('Recipe name cannot be blank')
+      return;
+    }
+
+    if (instructions.trim() === ''){
+      setErrorMsg('Instructions cannot be blank')
+      return;
+    }
+
+    if (category === ''){
+      setErrorMsg('Please choose a category')
+      return;
+    }
+
+    setErrorMsg('');
+
     recipe = `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`;
     let formData = new FormData();
 
@@ -78,14 +96,15 @@ function NewRecipe(props: IRegisterProps) {
           required
           onChange={handleInstructionsChange}
         />
+        <div className="small-top-margin">Category</div>
         <Form.Select
           value={category}
           onChange={handleCategoryChange}
           aria-label="Default select example"
           id="category"
-          className="small-top-margin small-bottom-margin"
+          className="small-bottom-margin"
         >
-          <option>Category</option>
+          
           <option value="Appetizer">Appetizer</option>
           <option value="Entree">Entree</option>
           <option value="Dessert">Dessert</option>
@@ -107,6 +126,7 @@ function NewRecipe(props: IRegisterProps) {
         >
           Create
         </button>
+        <div className='form-error'>{errorMsg}</div>
       </form>
     </>
   );
