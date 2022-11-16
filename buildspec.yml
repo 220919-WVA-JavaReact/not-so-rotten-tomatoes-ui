@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - npm install
-      - aws s3 cp s3://[s3bucketname]/[file-to-be-retrieved] .
+      - aws s3 cp s3://nsrt-fe-ui/* .
 
   build:
     commands:

@@ -11,7 +11,7 @@ function SearchBar(props: ISearchBarProps) {
 
   async function searchRecipes(searchTerm: String) {
     const res = await fetch(
-      `http://localhost:8080/recipes/search/${searchTerm}`,
+      `${process.env.REACT_APP_API_URL}/recipes/search/${searchTerm}`,
       {
         method: 'GET',
         headers: {

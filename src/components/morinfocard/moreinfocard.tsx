@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
+import './moreinfocard.style.css';
 
 interface IMoreInfoProps {
   currentUser: User | undefined;
@@ -46,7 +47,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
   }
 
   function handleSubmit() {
-    fetch(`http://localhost:8080/recipes/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
@@ -64,7 +65,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
   }
 
   async function getRecipe() {
-    const res = await fetch(`http://localhost:8080/recipes/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
   return recipe ? (
     <MDBCard>
       <MDBRow>
-        <MDBCol>
+        <MDBCol style={{ display: 'grid', justifyContent: 'center' }}>
           <MDBRipple
             rippleColor="dark"
             rippleTag="div"
@@ -92,7 +93,11 @@ function MoreInfoCard(props: IMoreInfoProps) {
             <MDBCardImage
               src={`https://nsrt-public-images.s3.amazonaws.com/${recipe.filename}`}
               fluid
-              style={{ maxHeight: '300px' }}
+              style={{
+                maxHeight: '300px',
+                minHeight: '300px',
+                paddingTop: '20px',
+              }}
               alt="..."
             />
             <a>
@@ -102,11 +107,19 @@ function MoreInfoCard(props: IMoreInfoProps) {
               ></div>
             </a>
           </MDBRipple>
-          <MDBCardTitle>
+          <MDBCardTitle
+            style={{
+              display: 'grid',
+              justifyContent: 'center',
+              paddingTop: '10px',
+            }}
+          >
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
-          <MDBCardText>{recipe.instructions}</MDBCardText>
-          <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
+          <MDBCardText style={{ display: 'grid', justifyContent: 'center' }}>
+            {recipe.instructions}
+          </MDBCardText>
+          <MDBBtn style={{ width: '20%' }} onClick={handleEditClick}>
             {' '}
             {editing ? 'CANCEL' : 'EDIT'}
           </MDBBtn>
@@ -133,13 +146,19 @@ function MoreInfoCard(props: IMoreInfoProps) {
                     onChange={handleChange}
                   />
 
-                  <label>Category</label>
-                  <input
+                  <label style={{ paddingRight: '20px', paddingTop: '20px' }}>
+                    Category
+                  </label>
+                  <select
                     value={recipe.category}
                     id="category"
                     name="category"
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Entree">Entree</option>
+                    <option value="Dessert">Dessert</option>
+                  </select>
                 </form>
 
                 <MDBBtn className="small-top-margin" onClick={handleSubmit}>
