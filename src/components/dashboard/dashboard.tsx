@@ -11,7 +11,6 @@ interface IDashProps {
 
 function Dashboard(props: IDashProps) {
   const [recipes, setRecipes] = useState([]);
-
   async function getUserRecipes() {
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/recipes/users/${props.currentUser?.id}`,
@@ -37,7 +36,7 @@ function Dashboard(props: IDashProps) {
       <p>Welcome to the dashboard, {props.currentUser?.username}!</p>
       {/* <Reviews id={1} /> */}
       <Link to={`/recipes/new`}>
-        <MDBBtn style={{marginLeft: '2rem'}}>Create New Recipe</MDBBtn>
+        <MDBBtn style={{ marginLeft: '2rem' }}>Create New Recipe</MDBBtn>
       </Link>
 
       <div className="dash-grid">

@@ -19,6 +19,7 @@ function AddReview(props: IAddReviewProps) {
   };
 
   async function postReview() {
+    console.log(props.currentUser?.id);
     const authorid = props.currentUser?.id;
     const recipe_id = props.recipe;
     const token = sessionStorage.getItem('token');
