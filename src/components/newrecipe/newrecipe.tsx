@@ -21,18 +21,18 @@ function NewRecipe(props: IRegisterProps) {
   let { recipe } = useParams();
 
   const handleClick = () => {
-    if (recipeName.trim() === ''){
-      setErrorMsg('Recipe name cannot be blank')
+    if (recipeName.trim() === '') {
+      setErrorMsg('Recipe name cannot be blank');
       return;
     }
 
-    if (instructions.trim() === ''){
-      setErrorMsg('Instructions cannot be blank')
+    if (instructions.trim() === '') {
+      setErrorMsg('Instructions cannot be blank');
       return;
     }
 
-    if (category === ''){
-      setErrorMsg('Please choose a category')
+    if (category === '') {
+      setErrorMsg('Please choose a category');
       return;
     }
 
@@ -55,7 +55,7 @@ function NewRecipe(props: IRegisterProps) {
       body: formData,
     });
 
-    navigate('/dashboard');
+    navigate('/recipes');
   };
 
   const handleRecipeNameChange = (e: SyntheticEvent): void => {
@@ -101,7 +101,6 @@ function NewRecipe(props: IRegisterProps) {
           id="category"
           className="small-bottom-margin"
         >
-          
           <option value="Appetizer">Appetizer</option>
           <option value="Entree">Entree</option>
           <option value="Dessert">Dessert</option>
@@ -123,7 +122,7 @@ function NewRecipe(props: IRegisterProps) {
         >
           Create
         </button>
-        <div className='form-error'>{errorMsg}</div>
+        <div className="form-error">{errorMsg}</div>
       </form>
     </>
   );

@@ -24,7 +24,7 @@ function Reviews(props: IReviewProps) {
 
   async function getReviews() {
     const result = await fetch(
-      `http://localhost:8080/reviews/recipe/${props.id}`,
+      `${process.env.REACT_APP_API_URL}/reviews/recipe/${props.id}`,
       {
         method: 'GET',
         headers: {
@@ -52,11 +52,6 @@ function Reviews(props: IReviewProps) {
             style={{ backgroundColor: '#f0f2f5' }}
           >
             <MDBCardBody>
-              {/* <MDBInput
-                wrapperClass="mb-4"
-                placeholder="Type comment..."
-                label="+ Add a note"
-              /> */}
               <AddReview
                 currentUser={props.currentUser}
                 recipe_id={props.recipe.id}
@@ -66,9 +61,12 @@ function Reviews(props: IReviewProps) {
               {reviews.map((review: any) => {
                 return (
                   <ReviewCard
+                    currentUser={props.currentUser}
                     author={review.author.username}
                     text={review.review_text}
+                    id={review.review_id}
                     key={review.review_id}
+                    getReviews={getReviews}
                   />
                 );
               })}
