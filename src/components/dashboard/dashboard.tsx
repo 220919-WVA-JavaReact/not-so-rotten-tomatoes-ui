@@ -29,7 +29,7 @@ function Dashboard(props: IDashProps) {
 
   useEffect(() => {
     getUserRecipes();
-  });
+  }, []);
 
   return props.currentUser ? (
     <>
