@@ -43,9 +43,9 @@ function NewRecipe(props: IRegisterProps) {
 
     formData.append('file', filename);
     formData.append('recipe', recipe);
-    console.log(formData);
+    // console.log(formData);
 
-    fetch(`http://localhost:8080/recipes`, {
+    fetch(`${process.env.REACT_APP_API_URL}/recipes`, {
       method: 'POST',
       headers: {
         // 'Content-Type': 'multipart/form-data; boundary=$boundary',  --not necessary when sending over S3 file.
@@ -54,9 +54,6 @@ function NewRecipe(props: IRegisterProps) {
 
       body: formData,
     });
-    // .then((res) => res.json())
-    // .then((data) => console.log(data))
-    // .catch((err) => console.error(err));
 
     navigate('/dashboard');
   };

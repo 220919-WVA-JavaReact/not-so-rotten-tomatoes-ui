@@ -25,11 +25,35 @@ function RecipeCard(props: IRecipeCardProps) {
         src={`https://nsrt-public-images.s3.amazonaws.com/${props.filename}`}
         position="top"
         alt="..."
+        style={{
+          maxHeight: '150px',
+          minHeight: '150px',
+          maxWidth: '190px',
+          minWidth: '190px',
+        }}
       />
       <MDBCardBody>
-        <MDBCardTitle>{props.name}</MDBCardTitle>
-        <MDBCardText>{props.category}</MDBCardText>
-        <MDBCardText>{props.instructions}</MDBCardText>
+        <MDBCardTitle
+          style={{
+            display: 'grid',
+            justifyContent: 'center',
+            fontSize: '25px',
+            textDecoration: 'underline',
+          }}
+        >
+          {props.name}
+        </MDBCardTitle>
+        <MDBCardText
+          style={{
+            fontSize: '18px',
+            paddingTop: '1px',
+          }}
+        >
+          {props.category}
+        </MDBCardText>
+        <MDBCardText style={{ fontSize: '15px', justifyContent: 'left' }}>
+          {props.instructions}
+        </MDBCardText>
         <Link to={`/recipes/${props.id}`}>
           <MDBBtn>See More</MDBBtn>
         </Link>

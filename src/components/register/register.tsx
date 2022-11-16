@@ -37,7 +37,7 @@ function Register(props: IRegisterProps) {
     } else {
       setErrorMessage('');
       // ${process.env.REACT_APP_API_URL}
-      let response = await fetch(`http://localhost:8080/users`, {
+      let response = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

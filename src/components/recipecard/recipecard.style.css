@@ -1,3 +1,7 @@
 MDBCard {
     max-width: 200px;
 }
+
+header {
+    padding-bottom: 25px;
+}

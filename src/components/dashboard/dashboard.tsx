@@ -14,7 +14,7 @@ function Dashboard(props: IDashProps) {
 
   async function getUserRecipes() {
     const res = await fetch(
-      `http://localhost:8080/recipes/users/${props.currentUser?.id}`,
+      `${process.env.REACT_APP_API_URL}/recipes/users/${props.currentUser?.id}`,
       {
         method: 'GET',
         headers: {
