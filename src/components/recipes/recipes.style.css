@@ -1,0 +1,17 @@
+.input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: flex;
+    justify-content: center;
+}
+
+.g-col-4 {
+    max-width: 200px;
+    margin-right: 1rem; 
+    display: flex;
+    justify-content: center;
+}
