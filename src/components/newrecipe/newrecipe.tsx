@@ -38,7 +38,7 @@ function NewRecipe(props: IRegisterProps) {
 
     setErrorMsg('');
 
-    recipe = `{"userid": ${author}, "instructions": "${instructions}", "title": "${recipeName}", "category": "${category}"}`;
+    recipe = `{"userid": ${author}, "title": "${recipeName}", "instructions": "${instructions}", "category": "${category}"}`;
     let formData = new FormData();
 
     formData.append('file', filename);
