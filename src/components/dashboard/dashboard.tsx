@@ -29,6 +29,7 @@ function Dashboard(props: IDashProps) {
 
   useEffect(() => {
     getUserRecipes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return props.currentUser ? (

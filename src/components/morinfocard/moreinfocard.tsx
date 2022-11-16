@@ -27,12 +27,13 @@ function MoreInfoCard(props: IMoreInfoProps) {
   const [, setAuthUser] = useState<User>();
   const [recipe, setRecipe] = useState<any>({});
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState('');
 
   let { id } = useParams();
 
   function handleEditClick() {
-    setEditing(!editing);
-    getRecipe();
+      setEditing(!editing);
+      getRecipe();
     //@DOCS: THIS WAY, OUR CHANGES ARE ERASED ON HITTING 'CANCEL', BUT PERSISTED IF
     //WE HIT SAVE.
   }
@@ -45,25 +46,38 @@ function MoreInfoCard(props: IMoreInfoProps) {
     });
   }
 
+  
   function handleSubmit() {
+
+    if (props.currentUser?.id !== recipe.author.user_id){
+      setError("Unable to edit someone ELSE's recipe, please try again.");
+      //@DOCS: front end validation AND back end validation both
+      //prevent a user from editing someone ELSE's recipe. 
+    } else {
     fetch(`http://localhost:8080/recipes/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ ...recipe }),
+      body: JSON.stringify({...recipe}),
     }).then((res) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newData = res.json();
-      setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
-      // DO NOT CHANGE ME OR BAD UGLY THINGS
-      //  WILL HAPPEN!
+      if (res.status === 400){
+        setError("Unable to update the RECIPE, please try again");
+      } else {
+        setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
+        // DO NOT CHANGE ME OR BAD UGLY THINGS
+        //  WILL HAPPEN!
+      }
+      
     });
     setEditing(!editing);
   }
-
+}
   async function getRecipe() {
+    setError('');
     const res = await fetch(`http://localhost:8080/recipes/${id}`, {
       method: 'GET',
       headers: {
@@ -106,6 +120,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
           <MDBCardText>{recipe.instructions}</MDBCardText>
+          <MDBCardText style={{ color: 'red' }}>{error}</MDBCardText>
           <MDBBtn style={{ width: '12.5%' }} onClick={handleEditClick}>
             {' '}
             {editing ? 'CANCEL' : 'EDIT'}
