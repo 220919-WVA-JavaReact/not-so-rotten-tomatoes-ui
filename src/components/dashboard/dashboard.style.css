@@ -3,11 +3,5 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-row-gap: 2rem;
-}
-
-p {
-    display: grid;
-    justify-content: center;
-    padding-top: 20px;
-    font-size: larger;
+    margin-left: 2rem;
 }
