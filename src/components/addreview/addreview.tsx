@@ -22,10 +22,9 @@ function AddReview(props: IAddReviewProps) {
     const authorid = props.currentUser?.id;
     const recipe_id = props.recipe;
     const token = sessionStorage.getItem('token');
-    console.log(authorid);
 
     const result = await fetch(
-      `http://localhost:8080/reviews/recipe/${props.recipe.id}`,
+      `${process.env.REACT_APP_API_URL}/reviews/recipe/${props.recipe.id}`,
       {
         method: 'POST',
         headers: {

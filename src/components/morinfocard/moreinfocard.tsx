@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { Recipe } from '../../models/recipe';
 import { User } from '../../models/user';
 import Reviews from '../reviews/reviews';
+import './moreinfocard.style.css';
 
 interface IMoreInfoProps {
   currentUser: User | undefined;
@@ -34,8 +35,8 @@ function MoreInfoCard(props: IMoreInfoProps) {
   let { id } = useParams();
 
   function handleEditClick() {
-      setEditing(!editing);
-      getRecipe();
+    setEditing(!editing);
+    getRecipe();
     //@DOCS: THIS WAY, OUR CHANGES ARE ERASED ON HITTING 'CANCEL', BUT PERSISTED IF
     //WE HIT SAVE.
   }
@@ -48,39 +49,36 @@ function MoreInfoCard(props: IMoreInfoProps) {
     });
   }
 
-  
   function handleSubmit() {
-
-    if (props.currentUser?.id !== recipe.author.user_id){
+    if (props.currentUser?.id !== recipe.author.user_id) {
       setError("Unable to edit someone ELSE's recipe, please try again.");
       //@DOCS: front end validation AND back end validation both
-      //prevent a user from editing someone ELSE's recipe. 
+      //prevent a user from editing someone ELSE's recipe.
     } else {
-    fetch(`http://localhost:8080/recipes/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({...recipe}),
-    }).then((res) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const newData = res.json();
-      if (res.status === 400){
-        setError("Unable to update the RECIPE, please try again");
-      } else {
-        setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
-        // DO NOT CHANGE ME OR BAD UGLY THINGS
-        //  WILL HAPPEN!
-      }
-      
-    });
-    setEditing(!editing);
+      fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ ...recipe }),
+      }).then((res) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const newData = res.json();
+        if (res.status === 400) {
+          setError('Unable to update the RECIPE, please try again');
+        } else {
+          setRecipe(recipe); //@DOCS: THIS IS THE MAGIC BIT.
+          // DO NOT CHANGE ME OR BAD UGLY THINGS
+          //  WILL HAPPEN!
+        }
+      });
+      setEditing(!editing);
+    }
   }
-}
   async function getRecipe() {
     setError('');
-    const res = await fetch(`http://localhost:8080/recipes/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +97,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
   return recipe ? (
     <MDBCard>
       <MDBRow>
-        <MDBCol>
+        <MDBCol style={{ display: 'grid', justifyContent: 'center' }}>
           <MDBRipple
             rippleColor="dark"
             rippleTag="div"
@@ -108,7 +106,11 @@ function MoreInfoCard(props: IMoreInfoProps) {
             <MDBCardImage
               src={`https://nsrt-public-images.s3.amazonaws.com/${recipe.filename}`}
               fluid
-              style={{ maxHeight: '300px' }}
+              style={{
+                maxHeight: '300px',
+                minHeight: '300px',
+                paddingTop: '20px',
+              }}
               alt="..."
             />
             <a>
@@ -118,7 +120,13 @@ function MoreInfoCard(props: IMoreInfoProps) {
               ></div>
             </a>
           </MDBRipple>
-          <MDBCardTitle>
+          <MDBCardTitle
+            style={{
+              display: 'grid',
+              justifyContent: 'center',
+              paddingTop: '10px',
+            }}
+          >
             {recipe.recipe_name} - {recipe.category}
           </MDBCardTitle>
           <MDBCardText>{recipe.instructions}</MDBCardText>
@@ -163,6 +171,7 @@ function MoreInfoCard(props: IMoreInfoProps) {
           <option value="Entree">Entree</option>
           <option value="Dessert">Dessert</option>
         </Form.Select>
+
                 </form>
 
                 <MDBBtn className="small-top-margin" onClick={handleSubmit}>
