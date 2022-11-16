@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - npm install
-      - aws s3 cp s3://nsrt-fe-ui/* .
+      - aws s3 cp s3://nsrt-resources/.env .
 
   build:
     commands:
