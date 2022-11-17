@@ -98,7 +98,7 @@ function Register(props: IRegisterProps) {
       {errorMessage ? <p>{errorMessage}</p> : <></>}
 
       <Link to="/login">
-        <MDBBtn className="mb-4" size="lg" onClick={register}>
+        <MDBBtn className="mb-4" onClick={register}>
           Register
         </MDBBtn>
       </Link>
