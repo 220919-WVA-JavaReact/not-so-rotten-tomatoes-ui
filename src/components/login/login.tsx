@@ -1,6 +1,6 @@
 import { MDBBtn, MDBCheckbox, MDBContainer, MDBInput } from 'mdb-react-ui-kit';
 import { SyntheticEvent, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import {Link, Navigate } from 'react-router-dom';
 import { User } from '../../models/user';
 
 interface ILoginProps {
@@ -57,6 +57,7 @@ function Login(props: ILoginProps) {
     <Navigate to="/dashboard" />
   ) : (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
       <MDBInput
         wrapperClass="mb-4"
         label="Username"
@@ -84,13 +85,13 @@ function Login(props: ILoginProps) {
         />
       </div>
 
-      <MDBBtn className="mb-4" onClick={login}>
+      <MDBBtn className="mb-4"  onClick={login}>
         Sign in
       </MDBBtn>
 
       <div className="text-center">
         <p>
-          Not a member? <a href="/register">Register</a>
+          Not a member? <Link to="/register">Register</Link>
         </p>
         {/* Might use later for SSO login??-------------------------------------
         <p>or sign up with:</p>
