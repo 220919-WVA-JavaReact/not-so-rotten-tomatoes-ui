@@ -39,6 +39,7 @@ function RecipeCard(props: IRecipeCardProps) {
             justifyContent: 'center',
             fontSize: '25px',
             textDecoration: 'underline',
+            height: '60px',
           }}
         >
           {props.name}
