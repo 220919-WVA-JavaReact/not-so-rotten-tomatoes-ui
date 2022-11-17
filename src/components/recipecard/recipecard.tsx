@@ -51,7 +51,15 @@ function RecipeCard(props: IRecipeCardProps) {
         >
           {props.category}
         </MDBCardText>
-        <MDBCardText style={{ fontSize: '15px', justifyContent: 'left' }}>
+        <MDBCardText
+          style={{
+            fontSize: '15px',
+            justifyContent: 'left',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            height: '100px',
+          }}
+        >
           {props.instructions}
         </MDBCardText>
         <Link to={`/recipes/${props.id}`}>
