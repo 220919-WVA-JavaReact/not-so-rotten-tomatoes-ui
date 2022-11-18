@@ -12,10 +12,12 @@ interface IRegisterProps {
 
 
 
+
 function NewRecipe(props: IRegisterProps) {
 
   const author = props.currentUser?.id;
-  let initialRecipe = {
+  let initialRecipe = 
+  {
     userid: author,
     recipe_name: "",
     instructions: "",
@@ -28,6 +30,7 @@ function NewRecipe(props: IRegisterProps) {
   const [errorMsg, setErrorMsg] = useState('');
 
   let { recipe } = useParams();
+  
 
 
 
@@ -54,7 +57,7 @@ function NewRecipe(props: IRegisterProps) {
     //`{"userid": ${author}, --here for posterity, etc
     //"title": "${recipeName}", "instructions": "${instructions}", "category": "${category}"}`
 
-    recipe = newRecipe;
+    recipe = {...newRecipe};
     let formData = new FormData();
 
     formData.append('file', filename);
