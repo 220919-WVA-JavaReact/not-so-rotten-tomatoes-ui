@@ -10,35 +10,51 @@ interface IRegisterProps {
   currentUser: User | undefined;
 }
 
+
+
 function NewRecipe(props: IRegisterProps) {
+
+  const author = props.currentUser?.id;
+  let initialRecipe = {
+    userid: author,
+    recipe_name: "",
+    instructions: "",
+    category: "Appetizer"
+  }
+
   const navigate = useNavigate();
-  const [recipeName, setRecipeName] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [category, setCategory] = useState('Appetizer');
+  const [newRecipe, setRecipe] = useState<any>(initialRecipe);
   const [filename, setFilename] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const author = props.currentUser?.id;
+
   let { recipe } = useParams();
 
+
+
+
   const handleClick = () => {
-    if (recipeName.trim() === '') {
+    if (newRecipe.recipe_name.trim() === '') {
       setErrorMsg('Recipe name cannot be blank');
       return;
     }
 
-    if (instructions.trim() === '') {
+    if (newRecipe.instructions.trim() === '') {
       setErrorMsg('Instructions cannot be blank');
       return;
     }
 
-    if (category === '') {
+    if (newRecipe.category === '') {
       setErrorMsg('Please choose a category');
       return;
     }
 
     setErrorMsg('');
+    //TODO: I SHOULD BE AN ACTUAL OBJECT,
+    //NOT A STRING!
+    //`{"userid": ${author}, --here for posterity, etc
+    //"title": "${recipeName}", "instructions": "${instructions}", "category": "${category}"}`
 
-    recipe = `{"userid": ${author}, "title": "${recipeName}", "instructions": "${instructions}", "category": "${category}"}`;
+    recipe = newRecipe;
     let formData = new FormData();
 
     formData.append('file', filename);
@@ -52,23 +68,23 @@ function NewRecipe(props: IRegisterProps) {
         'Access-Control-Allow-Origin': '*',
       },
 
-      body: formData,
+      body: formData, 
     });
 
     navigate('/recipes');
   };
 
-  const handleRecipeNameChange = (e: SyntheticEvent): void => {
-    setRecipeName((e.target as HTMLInputElement).value);
-  };
+  //TODO: I SHOULD ONLY NEED ONE CHANGE HANDLER
 
-  const handleInstructionsChange = (e: SyntheticEvent): void => {
-    setInstructions((e.target as HTMLInputElement).value);
-  };
+  function handleChange(e: SyntheticEvent) {
+    setRecipe({
+      ...newRecipe,
+      [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
+        .value,
+    });
+  }
 
-  const handleCategoryChange = (e: SyntheticEvent): void => {
-    setCategory((e.target as HTMLInputElement).value);
-  };
+  //...except me, I should be seperate
   const handleFileChange = (event: any): void => {
     setFilename(event.target.files[0]);
   };
@@ -80,23 +96,28 @@ function NewRecipe(props: IRegisterProps) {
           label="Recipe Name"
           type="text"
           id="recipe_name"
+          value={newRecipe.recipe_name}
+          name="recipe_name"
           className="small-top-margin"
-          onChange={handleRecipeNameChange}
+          onChange={handleChange}
           required
           autoFocus
         />
         <MDBTextArea
           label="Instructions"
           id="instructions"
+          value={newRecipe.instructions}
+          name="instructions"
           rows={9}
           className="small-top-margin"
           required
-          onChange={handleInstructionsChange}
+          onChange={handleChange}
         />
         <div className="small-top-margin">Category</div>
         <Form.Select
-          value={category}
-          onChange={handleCategoryChange}
+          value={newRecipe.category}
+          name="category"
+          onChange={handleChange}
           aria-label="Default select example"
           id="category"
           className="small-bottom-margin"
