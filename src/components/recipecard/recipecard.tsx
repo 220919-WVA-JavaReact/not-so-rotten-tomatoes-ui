@@ -20,7 +20,7 @@ interface IRecipeCardProps {
 
 function RecipeCard(props: IRecipeCardProps) {
   return (
-    <MDBCard>
+    <MDBCard className="g-col-4">
       <MDBCardImage
         src={`https://nsrt-public-images.s3.amazonaws.com/${props.filename}`}
         position="top"

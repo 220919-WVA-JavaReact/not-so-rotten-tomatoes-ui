@@ -7,13 +7,15 @@
 .grid {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .g-col-4 {
-    max-width: 200px;
+    max-width: 208px;
     margin-right: 1rem; 
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 header {
